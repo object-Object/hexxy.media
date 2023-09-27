@@ -13,8 +13,12 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11"
 dependencies = [
+    "pydantic!=2.4.0",
+    "pydantic_settings~=2.0.3",
     "fastapi~=0.103.1",
     "uvicorn~=0.23.2",
+    "sqlmodel @ git+https://github.com/AntonDeMeester/sqlmodel.git@244c94760b69", # nice
+    "psycopg2~=2.9.7",
 ]
 
 [project.optional-dependencies]
@@ -26,6 +30,9 @@ dev = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/hexxyapi"]
+
+[tool.hatch.metadata]
+allow-direct-references = true # TODO: remove when the SQLModel Pydantic v2 PR is merged
 
 [tool.pytest.ini_options]
 addopts = ["--import-mode=importlib"]
