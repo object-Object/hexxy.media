@@ -1,4 +1,3 @@
-from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
 
@@ -8,14 +7,13 @@ class DBSettings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
-        env_prefix="db_",
     )
 
-    host: str
-    port: int
-    username: str = Field(alias="user")
-    password: str = Field(alias="pass")
-    database: str = Field(alias="name")
+    db_host: str
+    db_port: int
+    db_user: str
+    db_pass: str
+    db_name: str
 
     @classmethod
     def model_validate_env(cls):
@@ -26,9 +24,9 @@ class DBSettings(BaseSettings):
         """postgresql://user:pass@host:port/name"""
         return URL.create(
             drivername="postgresql",
-            host=self.host,
-            port=self.port,
-            username=self.username,
-            password=self.password,
-            database=self.database,
+            host=self.db_host,
+            port=self.db_port,
+            username=self.db_user,
+            password=self.db_pass,
+            database=self.db_name,
         )
