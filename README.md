@@ -1,5 +1,5 @@
-# HexxyAPI
-Backend code for https://hexxy.media/api/v0/docs.
+# hexxy.media
+Monorepo for https://hexxy.media/.
 
 ## Setup
 
