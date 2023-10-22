@@ -20,7 +20,7 @@ def init_stacks(app: Construct):
         on_premise_instance_tag="prod-objectobject-ca",
         oidc_owner="object-Object",
         oidc_repo="hexxy.media",
-        oidc_environment="prod-aws-cdk",
+        oidc_environment="prod-codedeploy",
     )
 
 

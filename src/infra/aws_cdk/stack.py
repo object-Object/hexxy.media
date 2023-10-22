@@ -44,12 +44,6 @@ class HexxyMediaCDKStack(cdk.Stack):
             artifacts_bucket_name,
         )
 
-        cdk_role_proxy = iam.Role.from_role_arn(
-            self,
-            "CDKRoleProxy",
-            f"arn:aws:iam::{self.account}:role/cdk-*",
-        )
-
         # codedeploy application
 
         application = codedeploy.ServerApplication(
@@ -84,7 +78,6 @@ class HexxyMediaCDKStack(cdk.Stack):
             repo=oidc_repo,
             filter=f"environment:{oidc_environment}",
         )
-        cdk_role_proxy.grant_assume_role(github_actions_role)
         artifacts_bucket_proxy.grant_read_write(github_actions_role)
         github_actions_role.add_to_policy(
             iam.PolicyStatement(

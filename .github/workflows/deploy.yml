@@ -10,6 +10,7 @@ env:
   AWS_REGION: us-east-1
   STACK_NAME: prod-hexxy-media
   S3_BUCKET: prod-objectobject-ca-codedeploy-artifacts
+  CDK_IAM_ROLE_ARN: arn:aws:iam::511603859520:role/prod-objectobject-ca-GitHubActionsCDKRole19D97701-sweSB0Sp33WN
 
 jobs:
   build:
@@ -67,6 +68,7 @@ jobs:
     outputs:
       application-name: ${{ steps.cdk-outputs.outputs.application-name }}
       deployment-group-name: ${{ steps.cdk-outputs.outputs.deployment-group-name }}
+      iam-role-arn: ${{ steps.cdk-outputs.outputs.iam-role-arn }}
     steps:
       - uses: actions/checkout@v4
 
@@ -82,7 +84,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
+          role-to-assume: ${{ env.CDK_IAM_ROLE_ARN }}
 
       - name: Install CDK CLI
         run: npm install -g aws-cdk
@@ -99,12 +101,13 @@ jobs:
           outputs_json="$(cat outputs.json | jq '.["${{ env.STACK_NAME }}"]')"
           echo "application-name=$(echo "$outputs_json" | jq '.ApplicationName' --raw-output)" >> "$GITHUB_OUTPUT"
           echo "deployment-group-name=$(echo "$outputs_json" | jq '.DeploymentGroupName' --raw-output)" >> "$GITHUB_OUTPUT"
+          echo "iam-role-arn=$(echo "$outputs_json" | jq '.GitHubActionsRoleARN' --raw-output)" >> "$GITHUB_OUTPUT"
 
   deploy-codedeploy:
     needs: deploy-aws-cdk
     runs-on: ubuntu-latest
     environment:
-      name: prod-aws-cdk
+      name: prod-codedeploy
       url: ${{ steps.create-deployment.outputs.url }}
     permissions:
       id-token: write
@@ -115,7 +118,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
+          role-to-assume: ${{ needs.deploy-aws-cdk.outputs.iam-role-arn }}
 
       - name: Download build artifact
         uses: actions/download-artifact@v3
