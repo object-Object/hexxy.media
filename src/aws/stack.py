@@ -57,10 +57,15 @@ class HexxyMediaStack(cdk.Stack):
             "Application",
         )
 
+        deployment_config: codedeploy.ServerDeploymentConfig = (
+            codedeploy.ServerDeploymentConfig.ONE_AT_A_TIME
+        )
+
         deployment_group = codedeploy.ServerDeploymentGroup(
             self,
             "DeploymentGroup",
             application=application,
+            deployment_config=deployment_config,
             auto_rollback=codedeploy.AutoRollbackConfig(
                 failed_deployment=True,
             ),
@@ -87,6 +92,7 @@ class HexxyMediaStack(cdk.Stack):
                 resources=[
                     application.application_arn,
                     deployment_group.deployment_group_arn,
+                    deployment_config.deployment_config_arn,
                 ],
             )
         )
