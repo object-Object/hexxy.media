@@ -115,13 +115,16 @@ jobs:
       - name: Upload deployment bundle to S3
         id: upload-bundle
         run: |
-          S3_PREFIX="${{ env.STACK_NAME }}/${{ github.sha }}"
-          echo "s3-prefix=$S3_PREFIX" >> "$GITHUB_OUTPUT"
-          aws s3 sync bundle s3://${{ env.S3_BUCKET }}/$S3_PREFIX/ --delete
+          S3_KEY="${{ env.STACK_NAME }}/${{ github.sha }}.zip"
+          echo "s3-key=$S3_KEY" >> "$GITHUB_OUTPUT"
+          aws deploy push \
+            --application-name ${{ needs.deploy-cdk-stack.outputs.application-name }} \
+            --s3-location s3://${{ env.S3_BUCKET }}/$S3_KEY \
+            --source bundle
 
       - name: Create CodeDeploy deployment
         run: |
           aws deploy create-deployment \
             --application-name ${{ needs.deploy-cdk-stack.outputs.application-name }} \
             --deployment-group-name ${{ needs.deploy-cdk-stack.outputs.deployment-group-name }} \
-            --s3-location "bucket=${{ env.S3_BUCKET }},key=${{ steps.upload-bundle.outputs.s3-prefix }}/appspec.yml,bundleType=YAML"
+            --s3-location "bucket=${{ env.S3_BUCKET }},key=${{ steps.upload-bundle.outputs.s3-key }},bundleType=zip"
