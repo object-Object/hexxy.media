@@ -98,15 +98,16 @@ jobs:
       - name: Parse CDK outputs file
         id: cdk-outputs
         run: |
-          OUTPUTS_JSON="$(cat outputs.json | jq '.["${{ env.STACK_NAME }}"]')"
-          echo "application-name=$(echo "$OUTPUTS_JSON" | jq '.ApplicationName')" >> "$GITHUB_OUTPUT"
-          echo "deployment-group-name=$(echo "$OUTPUTS_JSON" | jq '.DeploymentGroupName')" >> "$GITHUB_OUTPUT"
+          outputs_json="$(cat outputs.json | jq '.["${{ env.STACK_NAME }}"]')"
+          echo "application-name=$(echo "$outputs_json" | jq '.ApplicationName' --raw-output)" >> "$GITHUB_OUTPUT"
+          echo "deployment-group-name=$(echo "$outputs_json" | jq '.DeploymentGroupName' --raw-output)" >> "$GITHUB_OUTPUT"
 
   deploy-codedeploy:
     needs: deploy-aws-cdk
     runs-on: ubuntu-latest
     environment:
       name: prod-aws-cdk
+      url: ${{ steps.create-deployment.outputs.url }}
     permissions:
       id-token: write
       contents: read
@@ -135,8 +136,13 @@ jobs:
             --source codedeploy
 
       - name: Create CodeDeploy deployment
+        id: create-deployment
         run: |
-          aws deploy create-deployment \
+          response="$(aws deploy create-deployment \
             --application-name ${{ needs.deploy-aws-cdk.outputs.application-name }} \
             --deployment-group-name ${{ needs.deploy-aws-cdk.outputs.deployment-group-name }} \
-            --s3-location "bucket=${{ env.S3_BUCKET }},key=${{ steps.upload-bundle.outputs.s3-key }},bundleType=zip"
+            --s3-locationn "bucket=${{ env.S3_BUCKET }},key=${{ steps.upload-bundle.outputs.s3-key }},bundleType=zip")"
+          
+          deployment_id="$(echo "$response" | jq '.deploymentId' --raw-output)"
+          url="https://${{ env.AWS_REGION }}.console.aws.amazon.com/codesuite/codedeploy/deployments/${deployment_id}?region=${{ env.AWS_REGION }}"
+          echo "url=$url" >> "$GITHUB_OUTPUT"

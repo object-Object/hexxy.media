@@ -1,3 +1,11 @@
+dist/
+imports/*
+!imports/__init__.py
+.terraform
+cdktf.out
+cdktf.log
+*terraform.*.tfstate*
+
 outputs.json
 
 *.swp
