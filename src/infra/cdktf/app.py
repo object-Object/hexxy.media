@@ -13,6 +13,8 @@ def init_stacks(app: Construct):
     HexxyMediaTerraformStack(
         app,
         "prod",
+        organization="object-Object",
+        workspace="hexxy-media",
         zone_id="555d45bbbd42d4e084994b80948da2fe",
         github_pages=[
             GitHubPagesRecord("addons", "samsthenerd.github.io"),

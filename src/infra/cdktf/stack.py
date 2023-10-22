@@ -23,6 +23,8 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         scope: Construct,
         id: str,
         *,
+        organization: str,
+        workspace: str,
         zone_id: str,
         github_pages: list[GitHubPagesRecord],
     ):
@@ -31,8 +33,8 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
 
         cdktf.CloudBackend(
             self,
-            organization="object-Object",
-            workspaces=cdktf.NamedCloudWorkspace("hexxy-media"),
+            organization=organization,
+            workspaces=cdktf.NamedCloudWorkspace(workspace),
         )
 
         provider.CloudflareProvider(
