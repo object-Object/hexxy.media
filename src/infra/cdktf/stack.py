@@ -29,6 +29,12 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         logging.getLogger(__name__).info(f"Initializing stack: {id}")
         super().__init__(scope, id)
 
+        cdktf.CloudBackend(
+            self,
+            organization="object-Object",
+            workspaces=cdktf.NamedCloudWorkspace("hexxy-media"),
+        )
+
         provider.CloudflareProvider(
             self,
             "CloudflareProvider",
