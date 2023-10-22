@@ -2,7 +2,7 @@ version: 0.0
 os: linux 
 files:
   - source: /
-    destination: /var/lib/codedeploy_apps/hexxy.media
+    destination: /var/lib/codedeploy-apps/hexxy.media
 file_exists_behavior: OVERWRITE
 hooks:
   ApplicationStop:
