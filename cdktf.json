@@ -1,0 +1,10 @@
+{
+  "language": "python",
+  "app": "python -m src.infra.cdktf.app",
+  "projectId": "2081d51f-96bc-4c87-a655-4ada7c56b83f",
+  "sendCrashReports": "false",
+  "terraformProviders": [],
+  "terraformModules": [],
+  "codeMakerOutput": "imports",
+  "context": {}
+}

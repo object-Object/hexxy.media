@@ -37,25 +37,38 @@ jobs:
           name: build
           path: dist
 
-  # deploy-cdktf:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   environment:
-  #     name: prod-cdktf
-  #   permissions:
-  #     id-token: write
-  #     contents: read
-  #   steps:
-  #     - uses: actions/checkout@v4
+  deploy-cdktf:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: prod-cdktf
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
 
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 18
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-  #     - uses: actions/setup-python@v4
-  #       with:
-  #         python-version: "3.11"
-  #         cache: "pip"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Python packages
+        run: pip install .[cdktf]
+
+      - name: Run Terraform CDK
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        uses: hashicorp/terraform-cdk-action@v0.1
+        with:
+          mode: auto-approve-apply
+          stackName: prod
+          cdktfVersion: "0.19.0"
+          terraformVersion: "1.6.2"
 
   deploy-aws-cdk:
     needs: build
@@ -90,7 +103,7 @@ jobs:
         run: npm install -g aws-cdk
 
       - name: Install Python packages
-        run: pip install .[aws_cdk]
+        run: pip install .[aws-cdk]
       
       - name: Deploy CDK stack
         run: cdk deploy prod --ci --require-approval never --outputs-file outputs.json

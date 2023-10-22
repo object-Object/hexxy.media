@@ -24,7 +24,7 @@ runtime = [
     "sqlmodel @ git+https://github.com/AntonDeMeester/sqlmodel.git@244c94760b69", # nice
     "psycopg2~=2.9",
 ]
-aws_cdk = [
+aws-cdk = [
     "aws-cdk-lib==2.102.0",
     "aws-cdk-github-oidc==2.4.0",
 ]
@@ -33,7 +33,7 @@ cdktf = [
     "cdktf-cdktf-provider-cloudflare==10.0",
 ]
 dev = [
-    "hexxy.media[runtime,aws_cdk,cdktf]",
+    "hexxy.media[runtime,aws-cdk,cdktf]",
     "black==23.7.0",
     "isort==5.12.0",
     "pytest~=7.3",
