@@ -16,7 +16,7 @@ app = FastAPI(
 
 @app.get("/health")
 async def get_health():
-    return {"status": "OK"}
+    raise NotFoundException("something")
 
 
 @app.get("/pattern/number/{number}")
