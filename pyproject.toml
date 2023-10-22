@@ -16,6 +16,7 @@ dependencies = []
 
 [project.optional-dependencies]
 api = [
+    "cython<3.0", # fix "AttributeError: cython_sources"
     "pydantic~=2.3,!=2.4.0",
     "pydantic_settings",
     "fastapi~=0.103.1",
@@ -23,13 +24,16 @@ api = [
     "sqlmodel @ git+https://github.com/AntonDeMeester/sqlmodel.git@244c94760b69", # nice
     "psycopg2~=2.9",
 ]
-aws = [
+aws_cdk = [
     "aws-cdk-lib~=2.102",
     "aws-cdk-github-oidc~=2.4",
 ]
-cloudflare = []
+cdktf = [
+    "cdktf~=0.19.0",
+    "cdktf-cdktf-provider-cloudflare~=10.0",
+]
 dev = [
-    "hexxy.media[api,aws,cloudflare]",
+    "hexxy.media[api,aws_cdk,cdktf]",
     "black==23.7.0",
     "isort==5.12.0",
     "pytest~=7.3",

@@ -71,7 +71,7 @@ jobs:
         run: npm install -g aws-cdk
 
       - name: Install Python packages
-        run: pip install .[aws]
+        run: pip install .[aws_cdk]
       
       - name: Deploy CDK stack
         run: cdk deploy prod --ci --require-approval never --outputs-file outputs.json

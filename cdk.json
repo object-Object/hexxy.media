@@ -1,5 +1,5 @@
 {
-  "app": "python -m src.aws.app",
+  "app": "python -m src.infra.aws_cdk.app",
   "watch": {
     "include": [
       "**"
