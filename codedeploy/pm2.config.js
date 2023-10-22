@@ -2,7 +2,8 @@ module.exports = {
     apps: [
         {
             name:   "HexxyAPI",
-            script: "python -m hexxy_media.api.app",
+            cwd:    "/var/lib/codedeploy_apps/hexxy.media",
+            script: "source venv/bin/activate && python -m hexxy_media.api.app",
         },
     ]
 }

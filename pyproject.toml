@@ -15,7 +15,7 @@ requires-python = ">=3.11"
 dependencies = []
 
 [project.optional-dependencies]
-api = [
+runtime = [
     "pyyaml<5.4", # fix "AttributeError: cython_sources"
     "pydantic~=2.3,!=2.4.0",
     "pydantic_settings",
@@ -25,15 +25,15 @@ api = [
     "psycopg2~=2.9",
 ]
 aws_cdk = [
-    "aws-cdk-lib~=2.102",
-    "aws-cdk-github-oidc~=2.4",
+    "aws-cdk-lib==2.102.0",
+    "aws-cdk-github-oidc==2.4.0",
 ]
 cdktf = [
-    "cdktf~=0.19.0",
-    "cdktf-cdktf-provider-cloudflare~=10.0",
+    "cdktf==0.19.0",
+    "cdktf-cdktf-provider-cloudflare==10.0",
 ]
 dev = [
-    "hexxy.media[api,aws_cdk,cdktf]",
+    "hexxy.media[runtime,aws_cdk,cdktf]",
     "black==23.7.0",
     "isort==5.12.0",
     "pytest~=7.3",
