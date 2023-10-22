@@ -141,7 +141,7 @@ jobs:
           response="$(aws deploy create-deployment \
             --application-name ${{ needs.deploy-aws-cdk.outputs.application-name }} \
             --deployment-group-name ${{ needs.deploy-aws-cdk.outputs.deployment-group-name }} \
-            --s3-locationn "bucket=${{ env.S3_BUCKET }},key=${{ steps.upload-bundle.outputs.s3-key }},bundleType=zip")"
+            --s3-location "bucket=${{ env.S3_BUCKET }},key=${{ steps.upload-bundle.outputs.s3-key }},bundleType=zip")"
           
           deployment_id="$(echo "$response" | jq '.deploymentId' --raw-output)"
           url="https://${{ env.AWS_REGION }}.console.aws.amazon.com/codesuite/codedeploy/deployments/${deployment_id}?region=${{ env.AWS_REGION }}"
