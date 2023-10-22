@@ -83,13 +83,7 @@ class HexxyMediaStack(cdk.Stack):
         artifacts_bucket_proxy.grant_read_write(github_actions_role)
         github_actions_role.add_to_policy(
             iam.PolicyStatement(
-                actions=[
-                    "codedeploy:Get*",
-                    "codedeploy:Batch*",
-                    "codedeploy:CreateDeployment",
-                    "codedeploy:RegisterApplicationRevision",
-                    "codedeploy:List*",
-                ],
+                actions=["codedeploy:*"],
                 resources=[
                     application.application_arn,
                     deployment_group.deployment_group_arn,
