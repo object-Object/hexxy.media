@@ -25,9 +25,17 @@ async def get_number(
     session: Session = Depends(get_session),
     number: float,
 ) -> Number:
+    is_negative = number < 0
+    if is_negative:
+        number *= -1
+
     result = session.get(Number, number)
     if result is None:
         raise NotFoundException("Number literal")
+
+    if is_negative:
+        result.number *= -1
+        result.pattern = "dedd" + result.pattern.removeprefix("aqaa")
 
     return result
 

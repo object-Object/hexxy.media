@@ -30,15 +30,9 @@ ssh -L 63333:localhost:5432 object@objectobject.ca -N
 Terminal 2:
 ```sh
 source venv/bin/activate
-python -m hexxy.api.app
+python -m hexxy_media.api.app
 ```
 
 ## Deploy
 
-`DB_PORT=5432`
-
-```sh
-source venv/bin/activate
-pm2 start pm2.config.js
-pm2 save
-```
+Deployments are performed automatically on push via GitHub Actions, AWS CDK, CDKTF, and CodeDeploy.
