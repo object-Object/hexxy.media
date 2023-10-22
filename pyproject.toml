@@ -16,7 +16,7 @@ dependencies = []
 
 [project.optional-dependencies]
 api = [
-    "cython<3.0", # fix "AttributeError: cython_sources"
+    "pyyaml<5.4", # fix "AttributeError: cython_sources"
     "pydantic~=2.3,!=2.4.0",
     "pydantic_settings",
     "fastapi~=0.103.1",
