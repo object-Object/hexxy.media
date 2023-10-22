@@ -10,8 +10,8 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  S3_BUCKET: prod-objectobject-ca-codedeploy-artifacts
   STACK_NAME: prod-hexxy-media
+  S3_BUCKET: prod-objectobject-ca-codedeploy-artifacts
 
 jobs:
   build:
@@ -71,7 +71,7 @@ jobs:
         run: npm install -g aws-cdk
 
       - name: Install Python packages
-        run: pip install .[cdk]
+        run: pip install .[aws]
       
       - name: Deploy CDK stack
         run: cdk deploy prod --ci --require-approval never --outputs-file outputs.json
