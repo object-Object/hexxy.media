@@ -8,7 +8,7 @@ from constructs import Construct
 BASE_STACK_NAME = "hexxy-media"
 
 
-class HexxyMediaStack(cdk.Stack):
+class HexxyMediaCDKStack(cdk.Stack):
     def __init__(
         self,
         scope: Construct,

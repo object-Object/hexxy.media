@@ -5,11 +5,11 @@ from constructs import Construct
 
 from hexxy_media.common.logging import setup_logging
 
-from .stack import HexxyMediaStack
+from .stack import HexxyMediaCDKStack
 
 
 def init_stacks(app: Construct):
-    HexxyMediaStack(
+    HexxyMediaCDKStack(
         app,
         deployment_stage="prod",
         env=cdk.Environment(
@@ -20,7 +20,7 @@ def init_stacks(app: Construct):
         on_premise_instance_tag="prod-objectobject-ca",
         oidc_owner="object-Object",
         oidc_repo="hexxy.media",
-        oidc_environment="prod",
+        oidc_environment="prod-aws-cdk",
     )
 
 
