@@ -2,7 +2,10 @@ name: Build and deploy
 
 on:
   push:
-    tags: "*"
+    branches:
+      - "main"
+    tags:
+      - "*"
   workflow_dispatch:
 
 env:
@@ -17,6 +20,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
@@ -47,10 +51,11 @@ jobs:
       deployment-group-name: ${{ steps.cdk-outputs.outputs.deployment-group-name }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: npm
+
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
