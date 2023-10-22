@@ -50,6 +50,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: npm
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -57,8 +62,11 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
 
-      - name: Install CDK
+      - name: Install CDK CLI
         run: npm install -g aws-cdk
+
+      - name: Install Python packages
+        run: pip install .[cdk]
       
       - name: Deploy CDK stack
         run: cdk deploy prod --ci --require-approval never --outputs-file outputs.json
@@ -70,7 +78,7 @@ jobs:
           echo "application-name=$(echo "$OUTPUTS_JSON" | jq '.ApplicationName')" >> "$GITHUB_OUTPUT"
           echo "deployment-group-name=$(echo "$OUTPUTS_JSON" | jq '.DeploymentGroupName')" >> "$GITHUB_OUTPUT"
 
-  deploy-application:
+  deploy-app:
     needs: deploy-cdk
     runs-on: ubuntu-latest
     environment:
