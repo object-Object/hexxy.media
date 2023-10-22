@@ -38,7 +38,7 @@ jobs:
           name: build
           path: dist
     
-  deploy-cdk:
+  deploy-cdk-stack:
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -83,8 +83,8 @@ jobs:
           echo "application-name=$(echo "$OUTPUTS_JSON" | jq '.ApplicationName')" >> "$GITHUB_OUTPUT"
           echo "deployment-group-name=$(echo "$OUTPUTS_JSON" | jq '.DeploymentGroupName')" >> "$GITHUB_OUTPUT"
 
-  deploy-app:
-    needs: deploy-cdk
+  deploy-codedeploy-app:
+    needs: deploy-cdk-stack
     runs-on: ubuntu-latest
     environment:
       name: prod
@@ -122,9 +122,6 @@ jobs:
       - name: Create CodeDeploy deployment
         run: |
           aws deploy create-deployment \
-            --application-name ${{ needs.deploy-cdk.outputs.application-name }} \
-            --deployment-group-name ${{ needs.deploy-cdk.outputs.deployment-group-name }} \
-            --s3-location \
-              bucket=${{ env.S3_BUCKET }},\
-              key=${{ steps.upload-bundle.outputs.s3-prefix }}/appspec.yml,\
-              bundleType=YAML
+            --application-name ${{ needs.deploy-cdk-stack.outputs.application-name }} \
+            --deployment-group-name ${{ needs.deploy-cdk-stack.outputs.deployment-group-name }} \
+            --s3-location "bucket=${{ env.S3_BUCKET }},key=${{ steps.upload-bundle.outputs.s3-prefix }}/appspec.yml,bundleType=YAML"
