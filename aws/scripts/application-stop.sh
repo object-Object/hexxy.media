@@ -2,4 +2,4 @@
 set -euo pipefail
 
 cd /var/lib/codedeploy_apps/hexxy.media
-pm2 stop pm2.config.js
+pm2 stop pm2.config.js || true
