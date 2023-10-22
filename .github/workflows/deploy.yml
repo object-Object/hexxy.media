@@ -67,8 +67,6 @@ jobs:
         with:
           mode: auto-approve-apply
           stackName: prod
-          cdktfVersion: "0.19.0"
-          terraformVersion: "1.6.2"
           terraformCloudToken: ${{ secrets.TF_API_TOKEN }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
