@@ -37,12 +37,32 @@ jobs:
         with:
           name: build
           path: dist
-    
-  deploy-cdk-stack:
+
+  # deploy-cdktf:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: prod-cdktf
+  #   permissions:
+  #     id-token: write
+  #     contents: read
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
+
+  #     - uses: actions/setup-python@v4
+  #       with:
+  #         python-version: "3.11"
+  #         cache: "pip"
+
+  deploy-aws-cdk:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: prod
+      name: prod-aws-cdk
     permissions:
       id-token: write
       contents: read
@@ -61,8 +81,7 @@ jobs:
           python-version: "3.11"
           cache: "pip"
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
@@ -83,19 +102,18 @@ jobs:
           echo "application-name=$(echo "$OUTPUTS_JSON" | jq '.ApplicationName')" >> "$GITHUB_OUTPUT"
           echo "deployment-group-name=$(echo "$OUTPUTS_JSON" | jq '.DeploymentGroupName')" >> "$GITHUB_OUTPUT"
 
-  deploy-codedeploy-app:
-    needs: deploy-cdk-stack
+  deploy-codedeploy:
+    needs: deploy-aws-cdk
     runs-on: ubuntu-latest
     environment:
-      name: prod
+      name: prod-aws-cdk
     permissions:
       id-token: write
       contents: read
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
@@ -104,13 +122,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build
-          path: dist
-
-      - name: Prepare deployment bundle
-        run: |
-          mkdir bundle
-          cp --recursive --archive --target-directory=bundle \
-            dist aws appspec.yml
+          path: codedeploy/dist
 
       - name: Upload deployment bundle to S3
         id: upload-bundle
@@ -118,13 +130,13 @@ jobs:
           S3_KEY="${{ env.STACK_NAME }}/${{ github.sha }}.zip"
           echo "s3-key=$S3_KEY" >> "$GITHUB_OUTPUT"
           aws deploy push \
-            --application-name ${{ needs.deploy-cdk-stack.outputs.application-name }} \
+            --application-name ${{ needs.deploy-aws-cdk.outputs.application-name }} \
             --s3-location s3://${{ env.S3_BUCKET }}/$S3_KEY \
-            --source bundle
+            --source codedeploy
 
       - name: Create CodeDeploy deployment
         run: |
           aws deploy create-deployment \
-            --application-name ${{ needs.deploy-cdk-stack.outputs.application-name }} \
-            --deployment-group-name ${{ needs.deploy-cdk-stack.outputs.deployment-group-name }} \
+            --application-name ${{ needs.deploy-aws-cdk.outputs.application-name }} \
+            --deployment-group-name ${{ needs.deploy-aws-cdk.outputs.deployment-group-name }} \
             --s3-location "bucket=${{ env.S3_BUCKET }},key=${{ steps.upload-bundle.outputs.s3-key }},bundleType=zip"
