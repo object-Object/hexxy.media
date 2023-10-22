@@ -125,6 +125,16 @@ jobs:
           name: build
           path: codedeploy/dist
 
+      - name: Set environment variables
+        run: |
+          cat <<EOF > codedeploy/.env
+          DB_HOST=localhost
+          DB_POST=5432
+          DB_USER=hexxy_media
+          DB_PASS=${{ secrets.DB_PASS }}
+          DB_NAME=hexxy_media
+          EOF
+
       - name: Upload deployment bundle to S3
         id: upload-bundle
         run: |
