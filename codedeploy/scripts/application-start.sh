@@ -2,5 +2,5 @@
 set -euo pipefail
 
 cd /var/lib/codedeploy_apps/hexxy.media
-pm2 start pm2.config.js
-pm2 save
+sudo su object -c "pm2 start pm2.config.js --no-color"
+sudo su object -c "pm2 save --no-color"
