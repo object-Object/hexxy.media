@@ -1,0 +1,19 @@
+version: 0.0
+os: linux 
+files:
+  - source: /
+    destination: /var/lib/codedeploy_apps/hexxy.media
+file_exists_behavior: OVERWRITE
+hooks:
+  ApplicationStop:
+    - location: aws/scripts/application-stop.sh
+      timeout: 60
+  AfterInstall:
+    - location: aws/scripts/after-install.sh
+      timeout: 300
+  ApplicationStart:
+    - location: aws/scripts/application-start.sh
+      timeout: 60
+  ValidateService:
+    - location: aws/scripts/validate-service.sh
+      timeout: 60

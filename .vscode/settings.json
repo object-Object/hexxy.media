@@ -7,9 +7,12 @@
         },
         "editor.rulers": [88],
     },
-    "isort.importStrategy": "fromEnvironment",
     "python.languageServer": "Pylance",
     "python.analysis.diagnosticMode": "workspace",
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
+    "yaml.schemas": {
+        "file:///c%3A/Users/jack/.vscode/extensions/atlassian.atlascode-2.10.12/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
+        "https://json.schemastore.org/github-workflow.json": "file:///c%3A/Users/jack/Git/hexxy.media/.github/workflows/deploy.yml"
+    },
 }

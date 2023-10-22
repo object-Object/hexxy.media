@@ -6,7 +6,7 @@ _settings = DBSettings.model_validate_env()
 _engine = create_engine(_settings.engine_url)
 
 
-def check_connection():
+def check_db_connection():
     with Session(_engine) as session:
         session.connection()
 

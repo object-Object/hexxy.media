@@ -24,13 +24,13 @@ DB_NAME=hexxy_media
 
 Terminal 1:
 ```sh
-ssh -L 63333:localhost:5432 object@objectobject.ca
+ssh -L 63333:localhost:5432 object@objectobject.ca -N
 ```
 
 Terminal 2:
 ```sh
 source venv/bin/activate
-python -m hexxyapi
+python -m hexxy.api.app
 ```
 
 ## Deploy

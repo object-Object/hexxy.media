@@ -1,0 +1,117 @@
+name: Build and deploy
+
+on:
+  push:
+    tags: "*"
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-1
+  S3_BUCKET: prod-objectobject-ca-codedeploy-artifacts
+  STACK_NAME: prod-hexxy-media
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      
+      - name: Install Python packages
+        run: pip install . hatch
+      
+      - name: Build wheel
+        run: hatch build --target wheel
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: dist
+    
+  deploy-cdk:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    permissions:
+      id-token: write
+      contents: read
+    outputs:
+      application-name: ${{ steps.cdk-outputs.outputs.application-name }}
+      deployment-group-name: ${{ steps.cdk-outputs.outputs.deployment-group-name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
+
+      - name: Install CDK
+        run: npm install -g aws-cdk
+      
+      - name: Deploy CDK stack
+        run: cdk deploy prod --ci --require-approval never --outputs-file outputs.json
+
+      - name: Parse CDK outputs file
+        id: cdk-outputs
+        run: |
+          OUTPUTS_JSON="$(cat outputs.json | jq '.["${{ env.STACK_NAME }}"]')"
+          echo "application-name=$(echo "$OUTPUTS_JSON" | jq '.ApplicationName')" >> "$GITHUB_OUTPUT"
+          echo "deployment-group-name=$(echo "$OUTPUTS_JSON" | jq '.DeploymentGroupName')" >> "$GITHUB_OUTPUT"
+
+  deploy-application:
+    needs: deploy-cdk
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: dist
+
+      - name: Prepare deployment bundle
+        run: |
+          mkdir bundle
+          cp --recursive --archive --target-directory=bundle \
+            dist aws appspec.yml
+
+      - name: Upload deployment bundle to S3
+        id: upload-bundle
+        run: |
+          S3_PREFIX="${{ env.STACK_NAME }}/${{ github.sha }}"
+          echo "s3-prefix=$S3_PREFIX" >> "$GITHUB_OUTPUT"
+          aws s3 sync bundle s3://${{ env.S3_BUCKET }}/$S3_PREFIX/ --delete
+
+      - name: Create CodeDeploy deployment
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ needs.deploy-cdk.outputs.application-name }} \
+            --deployment-group-name ${{ needs.deploy-cdk.outputs.deployment-group-name }} \
+            --s3-location \
+              bucket=${{ env.S3_BUCKET }},\
+              key=${{ steps.upload-bundle.outputs.s3-prefix }}/appspec.yml,\
+              bundleType=YAML

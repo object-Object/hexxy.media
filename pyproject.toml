@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "HexxyAPI"
-description = "Backend code for https://hexxy.media/api/v1/docs"
+name = "hexxy.media"
+description = "Monorepo for https://hexxy.media/."
 version = "0.1.0"
 authors = [
     { name="object-Object" },
@@ -12,24 +12,38 @@ authors = [
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11"
-dependencies = [
-    "pydantic!=2.4.0",
-    "pydantic_settings~=2.0.3",
+dependencies = []
+
+[project.optional-dependencies]
+api = [
+    "pydantic~=2.3,!=2.4.0",
+    "pydantic_settings",
     "fastapi~=0.103.1",
     "uvicorn~=0.23.2",
     "sqlmodel @ git+https://github.com/AntonDeMeester/sqlmodel.git@244c94760b69", # nice
-    "psycopg2~=2.9.7",
+    "psycopg2~=2.9",
 ]
-
-[project.optional-dependencies]
+aws = [
+    "aws-cdk-lib~=2.102",
+    "aws-cdk-github-oidc~=2.4",
+]
+cloudflare = []
 dev = [
+    "hexxy.media[api,aws,cloudflare]",
     "black==23.7.0",
     "isort==5.12.0",
-    "pytest>=7.3.1",
+    "pytest~=7.3",
+]
+
+[tool.hatch.build.targets.sdist]
+only-include = [
+    "src/hexxy_media",
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/hexxyapi"]
+packages = [
+    "src/hexxy_media",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true # TODO: remove when the SQLModel Pydantic v2 PR is merged
@@ -40,7 +54,9 @@ addopts = ["--import-mode=importlib"]
 [tool.isort]
 profile = "black"
 combine_as_imports = true
-known_first_party = ["hexxyapi"]
+known_first_party = [
+    "hexxy",
+]
 
 [tool.pyright]
 pythonVersion = "3.11"
