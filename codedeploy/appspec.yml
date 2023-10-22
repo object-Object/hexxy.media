@@ -6,14 +6,14 @@ files:
 file_exists_behavior: OVERWRITE
 hooks:
   ApplicationStop:
-    - location: scripts/application-stop.sh
+    - location: scripts/aws/application-stop.sh
       timeout: 60
   AfterInstall:
-    - location: scripts/after-install.sh
+    - location: scripts/aws/after-install.sh
       timeout: 300
   ApplicationStart:
-    - location: scripts/application-start.sh
+    - location: scripts/aws/application-start.sh
       timeout: 60
   ValidateService:
-    - location: scripts/validate-service.sh
+    - location: scripts/aws/validate-service.sh
       timeout: 60
