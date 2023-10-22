@@ -129,7 +129,7 @@ jobs:
         run: |
           cat <<EOF > codedeploy/.env
           DB_HOST=localhost
-          DB_POST=5432
+          DB_PORT=5432
           DB_USER=hexxy_media
           DB_PASS=${{ secrets.DB_PASS }}
           DB_NAME=hexxy_media
