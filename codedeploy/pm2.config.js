@@ -3,7 +3,7 @@ module.exports = {
         {
             name:         "HexxyAPI",
             script:       "./scripts/pm2/HexxyAPI.sh",
-            min_uptime:   5,
+            min_uptime:   "5s",
             max_restarts: 5,
         },
     ]
