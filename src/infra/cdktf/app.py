@@ -18,7 +18,8 @@ def init_stacks(app: Construct):
         zone_id="555d45bbbd42d4e084994b80948da2fe",
         github_pages=[
             GitHubPagesRecord("addons", "samsthenerd.github.io"),
-            GitHubPagesRecord("hexgloop", "samsthenerd.github.io")
+            GitHubPagesRecord("hexgloop", "samsthenerd.github.io"),
+            GitHubPagesRecord("hexal-dev", "object-object.github.io"),
         ],
     )
 
