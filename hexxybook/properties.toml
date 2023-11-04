@@ -1,0 +1,27 @@
+modid = "hexxybook"
+book = "hexcasting:thehexbook"
+default_lang = "en_us"
+
+resource_dirs = [  # top takes priority
+    "resources",
+    { modid="hexal", external=false, reexport=false },
+    { modid="hexcasting", external=false, reexport=false },
+]
+export_dir = "../src/hexdoc_hexxybook/_export/generated"
+
+pattern_stubs = []
+
+[template]
+static_dir = "static"
+include = [
+    "hexxybook",
+    "hexal",
+    "hexcasting",
+    "patchouli",
+]
+
+[template.args]
+mod_name = "The Book of Hexxy"
+author = "object-Object"
+icon_href = "icon.png"
+show_landing_text = true

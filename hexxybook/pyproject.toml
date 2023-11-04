@@ -6,11 +6,9 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hexdoc-hexxybook"
-description = "Python web book docgen and hexdoc plugin for The Book of Hexxy."
-readme = "doc/README.md"
-authors = [
-    { name="object-Object" },
-]
+description = "Python web book docgen and hexdoc plugin for the Book of Hexxy."
+readme = "README.md"
+authors = [{ name="object-Object" }]
 keywords = ["hexdoc"]
 requires-python = ">=3.11"
 dynamic = ["version", "dependencies", "optional-dependencies"]
@@ -24,48 +22,32 @@ Source = "https://github.com/object-Object/hexxy.media/tree/main/doc"
 [tool.hatch.version]
 scheme = "gradle"
 source = "gradle-properties"
-py-path = "doc/src/hexdoc_hexxybook/__version__.py"
+py-path = "__version__.py"
 key = "hexcastingVersion"
 
 [tool.hatch.metadata.hooks.gradle-properties]
-dependencies = [ # this can include normal dependency strings too
+dependencies = [
     { package="hexdoc", op="~=", py-version="1.0.dev", key="hexcastingVersion" },
+    "hexdoc-hexal @ https://github.com/object-Object/Hexal/raw/f94956c52183ffea1f7fb7ca9e53881885f5c280/docs/v/latest/dist/hexdoc_hexal-0.3.0.1.0rc2-py3-none-any.whl",
 ]
 
-[tool.hatch.metadata.hooks.gradle-properties.optional-dependencies]
-dev = [
-    "black==23.7.0",
-    "isort==5.12.0",
-]
-
-# directory inclusion
+# directory inclusion, or lack thereof
 
 [tool.hatch.build]
-only-include = [
-    "doc/src/hexdoc_hexxybook",
-    "gradle.properties",
-]
-artifacts = [
-    "/doc/src/hexdoc_hexxybook/_export/generated",
-    "/doc/src/hexdoc_hexxybook/__gradle_version__.py",
-]
+only-include = []
+artifacts = []
 
 [tool.hatch.build.targets.wheel]
-sources = ["doc/src"]
+sources = []
 
-# hexdoc entry points
-
-[project.entry-points.hexdoc]
-hexxybook = "hexdoc_hexxybook._hooks:HexxyPlugin"
+[tool.hatch.metadata]
+allow-direct-references = true
 
 # linting
 
 [tool.pyright]
 pythonVersion = "3.11"
 pythonPlatform = "All"
-
-include = ["doc/src"]
-extraPaths = ["doc/src"]
 
 typeCheckingMode = "basic"
 

@@ -1,0 +1,10 @@
+{
+    "watch": [
+        "properties.toml",
+        "resources",
+        "../src/hexdoc_hexxybook"
+    ],
+    "ignore": ["**/generated"],
+    "ext": "jinja,html,css,js,ts,toml,json,json5,py",
+    "exec": "hexdoc serve properties.toml --src _site/src/docs --dst _site/dst/docs --lang en_us --allow-missing --release"
+}

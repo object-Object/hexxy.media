@@ -1,3 +1,8 @@
+# hexdoc
+_site/
+_checkout/
+__gradle_version__.py
+
 dist/
 imports/*
 !imports/__init__.py

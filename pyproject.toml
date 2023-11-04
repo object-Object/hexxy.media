@@ -24,6 +24,10 @@ runtime = [
     "sqlmodel @ git+https://github.com/AntonDeMeester/sqlmodel.git@244c94760b69", # nice
     "psycopg2~=2.9",
 ]
+hexxybook = [
+    # mostly just a dummy package for gradle deps
+    "hexdoc-hexxybook @ {root:uri}/hexxybook",
+]
 aws-cdk = [
     "aws-cdk-lib==2.102.0",
     "aws-cdk-github-oidc==2.4.0",
@@ -33,7 +37,7 @@ cdktf = [
     "cdktf-cdktf-provider-cloudflare==10.0",
 ]
 dev = [
-    "hexxy.media[runtime,aws-cdk,cdktf]",
+    "hexxy.media[runtime,aws-cdk,cdktf,hexxybook]",
     "black==23.7.0",
     "isort==5.12.0",
     "pytest~=7.3",
@@ -42,15 +46,21 @@ dev = [
 [tool.hatch.build.targets.sdist]
 only-include = [
     "src/hexxy_media",
+    "src/hexdoc_hexxybook",
+    "hexxybook/gradle.properties",
 ]
 
 [tool.hatch.build.targets.wheel]
 packages = [
     "src/hexxy_media",
+    "src/hexdoc_hexxybook",
 ]
 
 [tool.hatch.metadata]
-allow-direct-references = true # TODO: remove when the SQLModel Pydantic v2 PR is merged
+allow-direct-references = true
+
+[project.entry-points.hexdoc]
+hexxybook = "hexdoc_hexxybook._hooks:HexxyPlugin"
 
 [tool.pytest.ini_options]
 addopts = ["--import-mode=importlib"]
@@ -59,12 +69,25 @@ addopts = ["--import-mode=importlib"]
 profile = "black"
 combine_as_imports = true
 known_first_party = [
-    "hexxy",
+    "hexxy_media",
 ]
 
 [tool.pyright]
 pythonVersion = "3.11"
 pythonPlatform = "All"
+
+include = [
+    "src",
+    "hexxybook",
+]
+exclude = [
+    "venv",
+    "**/.*",
+    "**/node_modules",
+    "**/__pycache__",
+    "cdk.out",
+    "cdktf.out",
+]
 
 enableExperimentalFeatures = true
 

@@ -1,0 +1,12 @@
+{
+  hexdoc: {
+    hexxybook: {
+      title: "The Book of Hexxy",
+      description: "The Book of Hexxy, all in one place.",
+      welcome: {
+        "1": "This is the Book of Hexxy.",
+        "2": "Content from Hex Casting and all $(l:https://pypi.org/project/hexdoc/)hexdoc/$-compatible addons can be viewed here.",
+      },
+    },
+  }
+}

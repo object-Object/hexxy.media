@@ -1,5 +1,6 @@
 from importlib.resources import Package
 
+from hexdoc.__gradle_version__ import GRADLE_VERSION
 from hexdoc.plugin import (
     HookReturn,
     LoadJinjaTemplatesImpl,
@@ -9,8 +10,6 @@ from hexdoc.plugin import (
 )
 
 import hexdoc_hexxybook
-
-from .__gradle_version__ import GRADLE_VERSION
 
 
 class HexxyPlugin(
@@ -28,10 +27,10 @@ class HexxyPlugin(
     def hexdoc_load_resource_dirs() -> HookReturn[Package]:
         # This needs to be a lazy import because they may not exist when this file is
         # first loaded, eg. when generating the contents of generated.
-        from ._export import generated, resources
+        from ._export import generated
 
-        return [generated, resources]
-    
+        return [generated]
+
     @staticmethod
     @hookimpl
     def hexdoc_load_jinja_templates() -> HookReturn[tuple[Package, str]]:
