@@ -5,7 +5,7 @@
       description: "The Book of Hexxy, all in one place.",
       welcome: {
         "1": "This is the Book of Hexxy.",
-        "2": "Content from Hex Casting and all $(l:https://pypi.org/project/hexdoc/)hexdoc/$-compatible addons can be viewed here.",
+        "2": "The Hex Casting book can be viewed here, including content from all $(l:https://pypi.org/project/hexdoc/)hexdoc/$-compatible addons. $(italic)(Is your addon missing? $(l:https://github.com/object-Object/hexxy.media)Open a PR!$(/l))/$",
       },
     },
   }
