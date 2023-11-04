@@ -1,4 +1,4 @@
-name: Build the web book
+name: Build the Book of Hexxy
 
 on:
   push:
