@@ -1,5 +1,8 @@
 [build-system]
-requires = ["hatchling", "hatch-gradle-version>=0.7.0"]
+requires = [
+    "hatchling",
+    "hatch-gradle-version>=0.9.2",
+]
 build-backend = "hatchling.build"
 
 # project metadata
@@ -27,8 +30,8 @@ key = "hexcastingVersion"
 
 [tool.hatch.metadata.hooks.gradle-properties]
 dependencies = [
-    { package="hexdoc", op="~=", py-version="1.0.dev", key="hexcastingVersion" },
-    "hexdoc-hexal @ https://github.com/object-Object/Hexal/raw/f94956c52183ffea1f7fb7ca9e53881885f5c280/docs/v/latest/dist/hexdoc_hexal-0.3.0.1.0rc2-py3-none-any.whl",
+    { package="hexdoc", op="~=", py-version="1.0.dev19", key="hexcastingVersion" },
+    "hexdoc-hexal @ https://github.com/object-Object/Hexal/raw/{hexalHash}/docs/v/latest/dist/hexdoc_hexal-{hexalFullVersion}-py3-none-any.whl",
 ]
 
 # directory inclusion, or lack thereof
