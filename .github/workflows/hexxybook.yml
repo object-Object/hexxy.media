@@ -33,7 +33,7 @@ defaults:
 
 jobs:
   hexdoc:
-    uses: object-Object/hexdoc/.github/workflows/hexdoc.yml@v0
+    uses: object-Object/hexdoc/.github/workflows/hexdoc.yml@main
     permissions: 
       contents: write
       pages: read
@@ -47,3 +47,5 @@ jobs:
           || inputs.update-latest
         }}
       publish-release: ${{ github.event_name != 'workflow_dispatch' || inputs.release }}
+      props-path: hexxybook/properties.toml
+      pip-extras: "[hexxybook]"
