@@ -19,8 +19,8 @@ def init_stacks(app: Construct):
         github_pages=[
             GitHubPagesRecord("addons", "samsthenerd.github.io"),
             GitHubPagesRecord("hexgloop", "samsthenerd.github.io"),
-            GitHubPagesRecord("hexal-dev", "object-object.github.io"),
             GitHubPagesRecord("book", "object-object.github.io"),
+            GitHubPagesRecord("hexdoc", "object-object.github.io"),
         ],
     )
 
