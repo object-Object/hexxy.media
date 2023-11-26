@@ -17,10 +17,12 @@ def init_stacks(app: Construct):
         workspace="hexxy-media",
         zone_id="555d45bbbd42d4e084994b80948da2fe",
         github_pages=[
+            GitHubPagesRecord("hexdoc", "hexdoc-dev.github.io"),
             GitHubPagesRecord("addons", "samsthenerd.github.io"),
+            # GitHubPagesRecord("book", "object-object.github.io"),
+            # mod books
+            GitHubPagesRecord("hexcasting", "object-object.github.io"),  # TODO: replace
             GitHubPagesRecord("hexgloop", "samsthenerd.github.io"),
-            GitHubPagesRecord("book", "object-object.github.io"),
-            GitHubPagesRecord("hexdoc", "object-object.github.io"),
         ],
     )
 
