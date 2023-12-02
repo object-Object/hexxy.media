@@ -19,4 +19,4 @@ class Number(SQLModel):
 
     number: float = Field(primary_key=True)
     pattern: str
-    score: int
+    score: int = Field(exclude=True)

@@ -30,7 +30,7 @@ ssh -L 63333:localhost:5432 object@objectobject.ca -N
 Terminal 2:
 ```sh
 source venv/bin/activate
-python -m hexxy_media.api.app
+uvicorn --reload --port 5000 hexxy_media.api.app:app
 ```
 
 ## Deploy
