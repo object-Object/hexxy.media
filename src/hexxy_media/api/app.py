@@ -117,11 +117,11 @@ async def get_pattern_number(
 
 
 @app.get("/badge/hexdoc")
-def get_badge_hexdoc():
+def get_badge_hexdoc(*, label: bool = False):
     return {
         "schemaVersion": 1,
-        "label": "",
-        "labelColor": "9f6f9f",
+        "label": "powered by" if label else "",
+        "labelColor": "8a6188",
         "message": "hexdoc",
         "color": "332233",
         "logoSvg": "<?xml version='1.0' encoding='UTF-8'?><svg width='512' height='512' version='1.1' viewBox='0 0 135.47 135.47' xmlns='http://www.w3.org/2000/svg' xmlns:cc='http://creativecommons.org/ns#' xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'><metadata><rdf:RDF><cc:Work rdf:about=''><dc:format>image/svg+xml</dc:format><dc:type rdf:resource='http://purl.org/dc/dcmitype/StillImage'/><dc:title/></cc:Work></rdf:RDF></metadata><path d='m116.57 95.94-48.833 28.207-48.833-28.207v-56.414l48.833-28.207 48.833 28.207z' fill='#323' stroke='#201a20' stroke-linecap='square' stroke-linejoin='round' stroke-width='16.933' style='paint-order:stroke fill markers'/><g fill='none' stroke='#ddd' stroke-linecap='round' stroke-width='8.4667'><path d='m42.278 67.733h50.91'/><path d='m42.278 87.771h50.91'/><path d='m42.278 47.695h50.91'/></g></svg>",
