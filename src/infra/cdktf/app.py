@@ -8,6 +8,15 @@ from hexxy_media.common.logging import setup_logging
 
 from .stack import GitHubPagesRecord, HexxyMediaTerraformStack
 
+GITHUB_PAGES_RECORDS = [
+    GitHubPagesRecord("hexdoc", github_user="hexdoc-dev"),
+    GitHubPagesRecord("addons", github_user="samsthenerd"),
+    # GitHubPagesRecord("book", "object-object.github.io"),
+    # mod books
+    GitHubPagesRecord("hexcasting", github_user="object-object"),  # TODO: replace
+    GitHubPagesRecord("hexgloop", github_user="samsthenerd"),
+]
+
 
 def init_stacks(app: Construct):
     HexxyMediaTerraformStack(
@@ -16,14 +25,7 @@ def init_stacks(app: Construct):
         organization="object-Object",
         workspace="hexxy-media",
         zone_id="555d45bbbd42d4e084994b80948da2fe",
-        github_pages=[
-            GitHubPagesRecord("hexdoc", "hexdoc-dev.github.io"),
-            GitHubPagesRecord("addons", "samsthenerd.github.io"),
-            # GitHubPagesRecord("book", "object-object.github.io"),
-            # mod books
-            GitHubPagesRecord("hexcasting", "object-object.github.io"),  # TODO: replace
-            GitHubPagesRecord("hexgloop", "samsthenerd.github.io"),
-        ],
+        github_pages=GITHUB_PAGES_RECORDS,
     )
 
 

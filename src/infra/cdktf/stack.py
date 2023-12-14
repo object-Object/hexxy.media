@@ -7,14 +7,20 @@ from cdktf_cdktf_provider_cloudflare import provider, record
 from constructs import Construct
 
 OBJECTOBJECT_CA = "155.138.139.1"
-HEXXYCRAFT_PROD = "23.139.82.245"
-HEXXYCRAFT_DEV = "131.186.1.24"
 
 
 @dataclass
 class GitHubPagesRecord:
-    name: str
-    value: str
+    subdomain: str
+    github_user: str
+
+    @property
+    def url(self):
+        return f"https://{self.subdomain}.hexxy.media"
+
+    @property
+    def value(self):
+        return f"{self.github_user}.github.io"
 
 
 class HexxyMediaTerraformStack(cdktf.TerraformStack):
@@ -46,8 +52,8 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         for record_type, name, value, proxied in [
             ("A", "*", OBJECTOBJECT_CA, True),
             ("A", "hexxy.media", OBJECTOBJECT_CA, True),
-            ("A", "play", HEXXYCRAFT_PROD, False),
-            ("A", "dev.play", HEXXYCRAFT_DEV, False),
+            # ("A", "play", HEXXYCRAFT_PROD, False),
+            # ("A", "dev.play", HEXXYCRAFT_DEV, False),
         ]:
             record.Record(
                 self,
@@ -62,9 +68,9 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         for page in github_pages:
             record.Record(
                 self,
-                f"GitHubPages_{page.name}_{page.value}",
+                f"GitHubPages_{page.subdomain}_{page.value}",
                 zone_id=zone_id,
                 type="CNAME",
-                name=page.name,
+                name=page.subdomain,
                 value=page.value,
             )
