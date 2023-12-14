@@ -11,7 +11,6 @@ from .stack import GitHubPagesRecord, HexxyMediaTerraformStack
 GITHUB_PAGES_RECORDS = [
     GitHubPagesRecord("hexdoc", github_user="hexdoc-dev"),
     GitHubPagesRecord("addons", github_user="samsthenerd"),
-    # GitHubPagesRecord("book", "object-object.github.io"),
     # mod books
     GitHubPagesRecord("hexcasting", github_user="object-object"),  # TODO: replace
     GitHubPagesRecord("hexgloop", github_user="samsthenerd"),
