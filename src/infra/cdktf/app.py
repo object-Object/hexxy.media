@@ -15,6 +15,7 @@ GITHUB_PAGES_RECORDS = [
     # mod books
     GitHubPagesRecord("hexcasting", github_user="object-object"),  # TODO: replace
     GitHubPagesRecord("hexgloop", github_user="samsthenerd"),
+    GitHubPagesRecord("oneironaut", github_user="beholderface"),
 ]
 
 
