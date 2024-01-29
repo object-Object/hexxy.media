@@ -51,9 +51,8 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
 
         for record_type, name, value, proxied in [
             ("A", "*", OBJECTOBJECT_CA, True),
-            ("A", "hexxy.media", OBJECTOBJECT_CA, True),
-            # ("A", "play", HEXXYCRAFT_PROD, False),
-            # ("A", "dev.play", HEXXYCRAFT_DEV, False),
+            ("A", "@", OBJECTOBJECT_CA, True),
+            ("A", "hexxytest", "172.92.208.70", False),
         ]:
             record.Record(
                 self,
