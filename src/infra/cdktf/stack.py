@@ -56,7 +56,7 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         ]:
             record.Record(
                 self,
-                f"{record_type}_{name}_{value}",
+                f"{record_type}_{name.replace('*', 'WILDCARD')}_{value}",
                 zone_id=zone_id,
                 type=record_type,
                 name=name,
