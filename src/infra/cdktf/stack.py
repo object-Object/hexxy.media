@@ -62,6 +62,8 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                 "hexxytest": ("172.92.208.70", False),
             },
             "TXT": {
+                "_dmarc": ("v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s;", False),
+                "*._domainkey": ("v=DKIM1; p=", False),
                 "_visual-studio-marketplace-hexdoc-dev.hexxy.media": (
                     "b5247f90-1e08-4d5c-ac83-558024322149",
                     False,
@@ -77,6 +79,23 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                     value=value,
                     proxied=proxied,
                 )
+
+        # root-level TXT records
+        for value, ttl in [
+            (
+                "google-site-verification=NyyINfEEMwYz9RthiVwPJFn8-bIGMlEUMszznsLkNXQ",
+                3600,
+            ),
+            ("v=spf1 -all", None),
+        ]:
+            create_record(
+                self,
+                zone_id=zone_id,
+                type="TXT",
+                name=None,
+                value=value,
+                ttl=ttl,
+            )
 
         # GitHub Pages hexdoc books
         for page in github_pages:
