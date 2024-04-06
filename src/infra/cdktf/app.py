@@ -10,10 +10,10 @@ from .stack import GitHubPagesRecord, HexxyMediaTerraformStack
 
 GITHUB_PAGES_RECORDS = [
     GitHubPagesRecord("hexdoc", github_user="hexdoc-dev"),
-    GitHubPagesRecord("book", github_user="hexdoc-dev"),
     GitHubPagesRecord("addons", github_user="samsthenerd"),
     # mod books
-    GitHubPagesRecord("hexcasting", github_user="object-object"),  # TODO: replace
+    GitHubPagesRecord("book", github_user="hexdoc-dev"),
+    GitHubPagesRecord("hexcasting", github_user="fallingcolors"),
     GitHubPagesRecord("hexgloop", github_user="samsthenerd"),
     GitHubPagesRecord("oneironaut", github_user="beholderface"),
 ]
