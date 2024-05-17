@@ -156,7 +156,7 @@ if __name__ == "__main__":
     uvicorn.run(  # pyright: ignore[reportUnknownMemberType]
         app,
         host="0.0.0.0",
-        port=5000,
+        port=6000,
         # TODO: there's probably a better way to do this...
         root_path="/api/v0",
     )
