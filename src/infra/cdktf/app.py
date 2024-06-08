@@ -17,6 +17,7 @@ GITHUB_PAGES_RECORDS = [
     GitHubPagesRecord("hexgloop", github_user="samsthenerd"),
     GitHubPagesRecord("oneironaut", github_user="beholderface"),
     GitHubPagesRecord("hexdebug", github_user="object-object"),
+    GitHubPagesRecord("hexbound", github_user="object-object"),
 ]
 
 
