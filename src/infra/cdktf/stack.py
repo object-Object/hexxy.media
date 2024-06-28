@@ -105,7 +105,7 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                 name="cypher-mc",
                 priority=10,
                 weight=100,
-                target=cypher_mc.ip,
+                target="cypher-mc.hexxy.media",
                 port=cypher_mc.port,
             ),
         )
