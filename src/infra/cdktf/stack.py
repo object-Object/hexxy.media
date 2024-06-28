@@ -7,7 +7,11 @@ import cdktf
 from cdktf_cdktf_provider_cloudflare import provider, record
 from constructs import Construct
 
-OBJECTOBJECT_CA = "155.138.139.1"
+
+@dataclass
+class IPWithPort:
+    ip: str
+    port: int
 
 
 @dataclass
@@ -42,6 +46,9 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         workspace: str,
         zone_id: str,
         github_pages: list[GitHubPagesRecord],
+        objectobject_ca: str,
+        hexxytest: str,
+        cypher_mc: IPWithPort,
     ):
         logging.getLogger(__name__).info(f"Initializing stack: {id}")
         super().__init__(scope, id)
@@ -61,9 +68,10 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         # simple records
         for record_type, records in {
             "A": {
-                "*": (OBJECTOBJECT_CA, True),
-                "@": (OBJECTOBJECT_CA, True),
-                "hexxytest": ("172.92.208.70", False),
+                "*": (objectobject_ca, True),
+                "@": (objectobject_ca, True),
+                "hexxytest": (hexxytest, False),
+                "cypher-mc": (cypher_mc.ip, False),
             },
             "TXT": {
                 "_dmarc": ("v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s;", False),
@@ -83,6 +91,23 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                     value=value,
                     proxied=proxied,
                 )
+
+        # Minecraft SRV record for non-standard port
+        record.Record(
+            self,
+            "SRV_cypher-mc",
+            zone_id=zone_id,
+            type="SRV",
+            name="_minecraft._tcp",
+            data=record.RecordData(
+                service="_minecraft",
+                proto="_tcp",
+                name="cypher-mc",
+                priority=10,
+                weight=100,
+                port=cypher_mc.port,
+            ),
+        )
 
         # root-level TXT records
         for value, ttl in [
