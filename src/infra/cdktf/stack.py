@@ -111,11 +111,11 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         for page in github_pages:
             record.Record(
                 self,
-                f"GitHubPages_{page.name}_{page.value}",
+                f"GitHubPages_{page.record_name}_{page.record_value}",
                 zone_id=zone_id,
                 type="CNAME",
-                name=page.name,
-                value=page.value,
+                name=page.record_name,
+                value=page.record_value,
             )
 
 

@@ -1,19 +1,25 @@
 from .types import GitHubPagesRecord
 
-# generates CNAME records from `{subdomain}.hexxy.media` to `{github_user}.github.io`
-# NOTE: all fields must be lowercase
+# generates CNAME records from `{subdomain}.hexxy.media` to `{user}.github.io`
 
 GITHUB_PAGES_RECORDS = [
-    GitHubPagesRecord(subdomain="hexdoc", github_user="hexdoc-dev"),
-    GitHubPagesRecord(subdomain="addons", github_user="samsthenerd"),
-    GitHubPagesRecord(subdomain="book", github_user="hexdoc-dev"),
+    GitHubPagesRecord("addons", user="SamsTheNerd", title="Hex Casting Additions"),
+    GitHubPagesRecord("book", user="hexdoc-dev", title="Book of Hexxy"),
+    GitHubPagesRecord("hexdoc", user="hexdoc-dev", title="hexdoc"),
 ]
 
 GITHUB_PAGES_MOD_BOOKS = [
-    GitHubPagesRecord(subdomain="hexcasting", github_user="fallingcolors"),
-    GitHubPagesRecord(subdomain="hexgloop", github_user="samsthenerd"),
-    GitHubPagesRecord(subdomain="oneironaut", github_user="beholderface"),
-    GitHubPagesRecord(subdomain="ephemera", github_user="beholderface"),
-    GitHubPagesRecord(subdomain="hexdebug", github_user="object-object"),
-    GitHubPagesRecord(subdomain="hexbound", github_user="object-object"),
+    GitHubPagesRecord(
+        "hexcasting",
+        user="FallingColors",
+        title="Hex Casting",
+        hoist=True,
+    ),
+    GitHubPagesRecord("ephemera", user="beholderface"),
+    GitHubPagesRecord("hexgloop", user="SamsTheNerd", title="Hex Gloop"),
+    GitHubPagesRecord("hexbound", user="object-Object"),
+    GitHubPagesRecord("hexdebug", user="object-Object", title="HexDebug"),
+    GitHubPagesRecord("oneironaut", user="beholderface"),
 ]
+
+ALL_GITHUB_PAGES_RECORDS = GITHUB_PAGES_RECORDS + GITHUB_PAGES_MOD_BOOKS

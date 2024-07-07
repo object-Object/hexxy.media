@@ -1,0 +1,8 @@
+{
+    "watch": [
+        "src/hexxy_media/common",
+        "src/hexxy_media/web"
+    ],
+    "ext": "jinja,html,css,js,ts,toml,json,json5,py,png",
+    "exec": "python -m hexxy_media.web.app serve"
+}

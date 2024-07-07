@@ -1,0 +1,23 @@
+{%- macro github_pages(title, records) -%}
+  <h2 class="mt-4">{{ title }}</h2>
+
+  <ul class="list-group">
+    {% for record in records|sort(attribute="sortkey") %}
+      <a
+        href="{{ record.url }}"
+        class="{{ [
+          'list-group-item',
+          'list-group-item-action',
+          'hoist-separator' if record.hoist and not loop.last and not loop.nextitem.hoist,
+        ]|reject('undefined')|join(' ') }}"
+      >
+        <h5 class="mb-0">{{ record.title }}</h5>
+        <small class="text-body-secondary">{{ record.url }}</small>
+      </a>
+    {% endfor %}
+  </ul>
+{%- endmacro -%}
+
+{{ github_pages("Pages", github_pages_records) }}
+
+{{ github_pages("Mod Books", github_pages_mod_books) }}

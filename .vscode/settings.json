@@ -15,6 +15,10 @@
         "editor.rulers": [120],
     },
     "files.associations": {
-        "*.js.jinja": "javascript"
-    }
+        "*.js.jinja": "javascript",
+        "*.css.jinja": "css",
+        "*.scss.jinja": "scss",
+        "*.jcss.jinja": "jinja-css", // for files with a lot of jinja stuff, where the linting isn't useful
+        "*.json5.jinja": "json5",
+    },
 }

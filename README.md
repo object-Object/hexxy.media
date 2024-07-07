@@ -14,6 +14,7 @@ To register a subdomain for GitHub Pages, you can open a pull request adding a r
 python3.11 -m venv venv
 source venv/bin/activate
 pip install -e .[dev]
+npm i
 ```
 
 Create a file called `.env`:
@@ -38,6 +39,12 @@ Terminal 2:
 ```sh
 source venv/bin/activate
 uvicorn --reload --port 5000 hexxy_media.api.app:app
+```
+
+## Run static site locally
+
+```sh
+nodemon
 ```
 
 ## Deploy
