@@ -1,5 +1,12 @@
 # hexxy.media
+
 Monorepo for https://hexxy.media/.
+
+## Adding a subdomain
+
+Hex Casting addons are welcome to freely use `{modid}.hexxy.media` for their GitHub Pages web books or any other (reasonable) purpose.
+
+To register a subdomain for GitHub Pages, you can open a pull request adding a record to the appropriate list in [`src/hexxy_media/common/data.py`](src/hexxy_media/common/data.py), or just open an issue / ping me on Discord (`@leftsquarebracket`).
 
 ## Setup
 

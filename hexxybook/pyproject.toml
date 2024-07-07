@@ -37,7 +37,9 @@ dependencies = [
 # directory inclusion, or lack thereof
 
 [tool.hatch.build]
-only-include = []
+only-include = [
+    "__version__.py",
+]
 artifacts = []
 
 [tool.hatch.build.targets.wheel]
