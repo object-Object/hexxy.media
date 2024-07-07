@@ -19,23 +19,37 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
           cache: "pip"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts
       
       - name: Install Python packages
-        run: pip install . hatch
+        run: pip install .[build] hatch
+
+      - name: Install Node.js packages
+        run: npm ci
       
       - name: Build wheel
         run: hatch build --target wheel
 
+      - name: Build static site
+        run: python -m hexxy_media.web.app build
+
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: dist
+
+      - name: Upload static site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-site
+          path: _site
 
   deploy-cdktf:
     needs: build
@@ -136,10 +150,16 @@ jobs:
           role-to-assume: ${{ needs.deploy-aws-cdk.outputs.iam-role-arn }}
 
       - name: Download build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: codedeploy/dist
+
+      - name: Download static site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: static-site
+          path: codedeploy/html
 
       - name: Set environment variables
         run: |
