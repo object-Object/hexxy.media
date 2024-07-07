@@ -4,16 +4,13 @@ from .types import GitHubPagesRecord
 
 GITHUB_PAGES_RECORDS = [
     GitHubPagesRecord("addons", user="SamsTheNerd", title="Hex Casting Additions"),
-    GitHubPagesRecord("book", user="hexdoc-dev", title="Book of Hexxy"),
     GitHubPagesRecord("hexdoc", user="hexdoc-dev", title="hexdoc"),
 ]
 
 GITHUB_PAGES_MOD_BOOKS = [
+    GitHubPagesRecord("book", user="hexdoc-dev", title="Book of Hexxy", hoist=True),
     GitHubPagesRecord(
-        "hexcasting",
-        user="FallingColors",
-        title="Hex Casting",
-        hoist=True,
+        "hexcasting", user="FallingColors", title="Hex Casting", hoist=True
     ),
     GitHubPagesRecord("ephemera", user="beholderface"),
     GitHubPagesRecord("hexgloop", user="SamsTheNerd", title="Hex Gloop"),
