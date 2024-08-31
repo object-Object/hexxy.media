@@ -7,6 +7,11 @@ GITHUB_PAGES_RECORDS = [
     GitHubPagesRecord("hexdoc", user="hexdoc-dev", title="hexdoc"),
 ]
 
+# parameters:
+# - subdomain (the first string): Subdomain name, eg. "book" creates the subdomain `book.hexxy.media`
+# - user: GitHub username owning the repository that is using GitHub Pages.
+# - title: Display name used on hexxy.media. Defaults to the subdomain with the first letter capitalized.
+# - hoist: If True, display on hexxy.media in a separate group from the rest of the links.
 GITHUB_PAGES_MOD_BOOKS = [
     GitHubPagesRecord("book", user="hexdoc-dev", title="Book of Hexxy", hoist=True),
     GitHubPagesRecord(
