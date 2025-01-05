@@ -25,6 +25,9 @@ GITHUB_PAGES_MOD_BOOKS = [
     GitHubPagesRecord("complexhex", user="kineticneticat", title="Complex Hex"),
     GitHubPagesRecord("hexical", user="miyucomics"),
     GitHubPagesRecord("hexcellular", user="miyucomics"),
+    GitHubPagesRecord(
+        "hextended", user="abilliontrillionstars", title="Hextended Staves"
+    ),
 ]
 
 ALL_GITHUB_PAGES_RECORDS = GITHUB_PAGES_RECORDS + GITHUB_PAGES_MOD_BOOKS
