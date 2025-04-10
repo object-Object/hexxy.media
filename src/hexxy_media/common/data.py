@@ -21,6 +21,7 @@ GITHUB_PAGES_MOD_BOOKS = [
     GitHubPagesRecord("hexgloop", user="SamsTheNerd", title="Hex Gloop"),
     GitHubPagesRecord("hexbound", user="object-Object"),
     GitHubPagesRecord("hexdebug", user="object-Object", title="HexDebug"),
+    GitHubPagesRecord("ioticblocks", user="object-Object", title="IoticBlocks"),
     GitHubPagesRecord("oneironaut", user="beholderface"),
     GitHubPagesRecord("complexhex", user="kineticneticat", title="Complex Hex"),
     GitHubPagesRecord("hexical", user="miyucomics"),
