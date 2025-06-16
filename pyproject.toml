@@ -28,7 +28,7 @@ runtime = [
     "fastapi~=0.103.1",
     "uvicorn[standard]~=0.23.2",
     "sqlmodel @ git+https://github.com/mbsantiago/sqlmodel.git@3005495a3ec6c8216b31cbd623f91c7bc8ba174f",
-    "psycopg2~=2.9",
+    "psycopg2-binary~=2.9",
 ]
 hexxybook = [
     # mostly just a dummy package for gradle deps
