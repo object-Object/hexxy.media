@@ -2,6 +2,7 @@ import string
 
 import uvicorn
 from fastapi import Depends, FastAPI, Path, Query, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlmodel import Session
 
@@ -55,6 +56,14 @@ LEHMER_TOP_FIRST = Query(
 app = FastAPI(
     title="HexxyAPI",
     version="0.1.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=False,
 )
 
 
