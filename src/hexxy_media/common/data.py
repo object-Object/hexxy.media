@@ -17,6 +17,8 @@ GITHUB_PAGES_MOD_BOOKS = [
     GitHubPagesRecord(
         "hexcasting", user="FallingColors", title="Hex Casting", hoist=True
     ),
+    GitHubPagesRecord("hexal", user="FallingColors"),
+    GitHubPagesRecord("moreiotas", user="FallingColors", title="MoreIotas"),
     GitHubPagesRecord("ephemera", user="beholderface"),
     GitHubPagesRecord("hexgloop", user="SamsTheNerd", title="Hex Gloop"),
     GitHubPagesRecord("caduceus", user="object-Object"),
