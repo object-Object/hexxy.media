@@ -13,7 +13,7 @@ GITHUB_PAGES_RECORDS = [
 # - title: Display name used on hexxy.media. Defaults to the subdomain with the first letter capitalized.
 # - hoist: If True, display on hexxy.media in a separate group from the rest of the links.
 GITHUB_PAGES_MOD_BOOKS = [
-    GitHubPagesRecord("book", user="hexdoc-dev", title="Book of Hexxy", hoist=True),
+    GitHubPagesRecord("book", user="object-Object", title="Book of Hexxy", hoist=True),
     GitHubPagesRecord(
         "hexcasting", user="FallingColors", title="Hex Casting", hoist=True
     ),
