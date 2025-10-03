@@ -12,22 +12,5 @@
             "console": "integratedTerminal",
             "justMyCode": false
         },
-        {
-            "name": "Python: Generate Docs",
-            "type": "python",
-            "request": "launch",
-            "cwd": "${workspaceFolder}/hexxybook",
-            "module": "hexdoc.cli.main",
-            "args": [
-                "render",
-                "properties.toml",
-                "_site/src/docs",
-                "--lang",
-                "en_us",
-                "--allow-missing",
-            ],
-            "console": "integratedTerminal",
-            "justMyCode": false
-        },
     ]
 }

@@ -30,10 +30,6 @@ runtime = [
     "sqlmodel @ git+https://github.com/mbsantiago/sqlmodel.git@3005495a3ec6c8216b31cbd623f91c7bc8ba174f",
     "psycopg2-binary~=2.9",
 ]
-hexxybook = [
-    # mostly just a dummy package for gradle deps
-    "hexdoc-hexxybook @ {root:uri}/hexxybook",
-]
 aws-cdk = [
     "aws-cdk-lib==2.102.0",
     "aws-cdk-github-oidc==2.4.0",
@@ -43,7 +39,7 @@ cdktf = [
     "cdktf-cdktf-provider-cloudflare==10.0",
 ]
 dev = [
-    "hexxy.media[build,runtime,hexxybook,aws-cdk,cdktf]",
+    "hexxy.media[build,runtime,aws-cdk,cdktf]",
     "black==23.7.0",
     "isort==5.12.0",
     "pytest~=7.3",
@@ -52,21 +48,15 @@ dev = [
 [tool.hatch.build.targets.sdist]
 only-include = [
     "src/hexxy_media",
-    "src/hexdoc_hexxybook",
-    "hexxybook/gradle.properties",
 ]
 
 [tool.hatch.build.targets.wheel]
 packages = [
     "src/hexxy_media",
-    "src/hexdoc_hexxybook",
 ]
 
 [tool.hatch.metadata]
 allow-direct-references = true
-
-[project.entry-points.hexdoc]
-hexxybook = "hexdoc_hexxybook._hooks:HexxyPlugin"
 
 [tool.pytest.ini_options]
 addopts = ["--import-mode=importlib"]
@@ -84,7 +74,6 @@ pythonPlatform = "All"
 
 include = [
     "src",
-    "hexxybook",
 ]
 exclude = [
     "venv",
