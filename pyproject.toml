@@ -40,8 +40,7 @@ cdktf = [
 ]
 dev = [
     "hexxy.media[build,runtime,aws-cdk,cdktf]",
-    "black==23.7.0",
-    "isort==5.12.0",
+    "ruff~=0.13.3",
     "pytest~=7.3",
 ]
 
@@ -61,12 +60,40 @@ allow-direct-references = true
 [tool.pytest.ini_options]
 addopts = ["--import-mode=importlib"]
 
-[tool.isort]
-profile = "black"
-combine_as_imports = true
-known_first_party = [
+[tool.ruff]
+preview = true
+extend-exclude = [
+    "**/venv",
+    "**/.*",
+    "**/node_modules",
+    "**/__pycache__",
+]
+
+[tool.ruff.lint]
+extend-select = [
+    "I", # import sorting
+    "RUF022", # __all__ sorting
+    "TID252", # ban relative imports
+]
+extend-ignore = [
+    # covered by Pyright
+    "F821", # undefined variable
+    "F401", # imported but unused
+    "F841", # unused variable
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+known-first-party = [
     "hexxy_media",
 ]
+known-third-party = [
+    "aws_cdk",
+    "cdktf",
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "parents"
 
 [tool.pyright]
 pythonVersion = "3.11"
@@ -84,53 +111,40 @@ exclude = [
     "cdktf.out",
 ]
 
-enableExperimentalFeatures = true
-
-typeCheckingMode = "basic"
+typeCheckingMode = "standard"
 
 strictDictionaryInference = true
 strictListInference = true
 strictSetInference = true
 
-reportAssertAlwaysTrue = "error"
 reportConstantRedefinition = "error"
-reportDeprecated = "error"
-reportDuplicateImport = "error"
-reportFunctionMemberAccess = "error"
-reportIncompatibleMethodOverride = "error"
 reportIncompleteStub = "error"
 reportInconsistentConstructor = "error"
-reportInvalidStringEscapeSequence = "error"
 reportInvalidStubStatement = "error"
-reportInvalidTypeVarUse = "error"
-reportMatchNotExhaustive = "error"
-reportMissingParameterType = "error"
-reportMissingTypeStubs = "error"
-reportOverlappingOverload = "error"
-reportSelfClsParameterName = "error"
-reportTypeCommentUsage = "error"
-reportUnknownParameterType = "error"
-reportUnnecessaryCast = "error"
-reportUnnecessaryContains = "error"
-reportUnsupportedDunderAll = "error"
-reportUntypedBaseClass = "error"
-reportUntypedClassDecorator = "error"
-reportUntypedFunctionDecorator = "error"
-reportUntypedNamedTuple = "error"
-reportWildcardImportFromLibrary = "error"
 
+reportDeprecated = "warning"
+reportDuplicateImport = "warning"
+reportMatchNotExhaustive = "warning"
+reportMissingParameterType = "warning"
 reportMissingTypeArgument = "warning"
+reportMissingTypeStubs = "warning"
 reportPrivateUsage = "warning"
+reportTypeCommentUsage = "warning"
 reportUnknownArgumentType = "warning"
 reportUnknownLambdaType = "warning"
 reportUnknownMemberType = "warning"
+reportUnknownParameterType = "warning"
+reportUnknownVariableType = "warning"
+reportUnnecessaryCast = "warning"
 reportUnnecessaryComparison = "warning"
-reportUnnecessaryIsInstance =  	"warning"
+reportUnnecessaryContains = "warning"
+reportUnnecessaryIsInstance = "warning"
+reportUntypedBaseClass = "warning"
+reportUntypedClassDecorator = "warning"
+reportUntypedFunctionDecorator = "warning"
+reportUntypedNamedTuple = "warning"
 reportUnusedClass = "warning"
 reportUnusedExpression = "warning"
 reportUnusedFunction = "warning"
 reportUnusedImport = "warning"
 reportUnusedVariable = "warning"
-
-reportUnknownVariableType = "none"
-reportIncompatibleVariableOverride = "none"

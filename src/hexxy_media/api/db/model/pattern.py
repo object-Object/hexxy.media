@@ -1,4 +1,4 @@
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, SQLModel  # pyright: ignore[reportUnknownVariableType]
 from sqlmodel.typing import SQLModelConfig
 
 
@@ -14,7 +14,7 @@ class Number(SQLModel):
     ```
     """
 
-    __tablename__: str = "numbers"
+    __tablename__: str = "numbers"  # pyright: ignore[reportIncompatibleVariableOverride]
     model_config = SQLModelConfig(table=True)
 
     number: float = Field(primary_key=True)

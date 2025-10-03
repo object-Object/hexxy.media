@@ -63,9 +63,9 @@ class HexxyMediaCDKStack(cdk.Stack):
             auto_rollback=codedeploy.AutoRollbackConfig(
                 failed_deployment=True,
             ),
-            on_premise_instance_tags=codedeploy.InstanceTagSet(
-                {"instance": [on_premise_instance_tag]}
-            ),
+            on_premise_instance_tags=codedeploy.InstanceTagSet({
+                "instance": [on_premise_instance_tag]
+            }),
         )
 
         # GitHub Actions

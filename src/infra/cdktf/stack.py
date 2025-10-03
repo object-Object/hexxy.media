@@ -3,8 +3,8 @@ import os
 from dataclasses import dataclass
 
 import cdktf
-from cdktf_cdktf_provider_cloudflare import provider
 from cdktf_cdktf_provider_cloudflare.dns_record import DnsRecord
+from cdktf_cdktf_provider_cloudflare.provider import CloudflareProvider
 from constructs import Construct
 
 from hexxy_media.common.types import GitHubPagesRecord
@@ -39,7 +39,9 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
             workspaces=cdktf.NamedCloudWorkspace(workspace),
         )
 
-        provider.CloudflareProvider(
+        # Cloudflare
+
+        CloudflareProvider(
             self,
             "CloudflareProvider",
             api_token=os.getenv("CLOUDFLARE_API_TOKEN"),
