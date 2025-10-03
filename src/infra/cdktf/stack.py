@@ -1,10 +1,10 @@
 import logging
 import os
 from dataclasses import dataclass
-from typing import Any
 
 import cdktf
-from cdktf_cdktf_provider_cloudflare import provider, record
+from cdktf_cdktf_provider_cloudflare import provider
+from cdktf_cdktf_provider_cloudflare.dns_record import DnsRecord
 from constructs import Construct
 
 from hexxy_media.common.types import GitHubPagesRecord
@@ -72,31 +72,13 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                     proxied=proxied,
                 )
 
-        # Minecraft SRV record for non-standard port
-        record.Record(
-            self,
-            "SRV_cypher-mc",
-            zone_id=zone_id,
-            type="SRV",
-            name="_minecraft._tcp",
-            data=record.RecordData(
-                service="_minecraft",
-                proto="_tcp",
-                name="cypher-mc",
-                priority=10,
-                weight=100,
-                target="cypher-mc.hexxy.media",
-                port=cypher_mc.port,
-            ),
-        )
-
         # root-level TXT records
         for value, ttl in [
             (
                 "google-site-verification=NyyINfEEMwYz9RthiVwPJFn8-bIGMlEUMszznsLkNXQ",
                 3600,
             ),
-            ("v=spf1 -all", None),
+            ("v=spf1 -all", 1),
         ]:
             create_record(
                 self,
@@ -109,13 +91,14 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
 
         # GitHub Pages hexdoc books
         for page in github_pages:
-            record.Record(
+            DnsRecord(
                 self,
                 f"GitHubPages_{page.record_name}_{page.record_value}",
                 zone_id=zone_id,
                 type="CNAME",
                 name=page.record_name,
-                value=page.record_value,
+                content=page.record_value,
+                ttl=1,
             )
 
 
@@ -128,7 +111,7 @@ def create_record(
     value: str,
     priority: int | None = None,
     proxied: bool = False,
-    **kwargs: Any,
+    ttl: int = 1,
 ):
     match name:
         case "@":
@@ -141,14 +124,14 @@ def create_record(
             id_parts = [type, value]
             name = "@"
 
-    return record.Record(
+    return DnsRecord(
         scope,
         "_".join(id_parts).replace(".", "-"),
         zone_id=zone_id,
         type=type,
         name=name,
-        value=value,
+        content=value,
         priority=priority,
         proxied=proxied,
-        **kwargs,
+        ttl=ttl,
     )

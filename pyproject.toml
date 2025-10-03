@@ -35,8 +35,8 @@ aws-cdk = [
     "aws-cdk-github-oidc==2.4.0",
 ]
 cdktf = [
-    "cdktf==0.19.0",
-    "cdktf-cdktf-provider-cloudflare==10.0",
+    "cdktf==0.21.0",
+    "cdktf-cdktf-provider-cloudflare==13.6.0",
 ]
 dev = [
     "hexxy.media[build,runtime,aws-cdk,cdktf]",
