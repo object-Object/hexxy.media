@@ -218,6 +218,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure
+        id: deploy
         uses: azure/bicep-deploy@v2
         with:
           type: deployment
@@ -227,3 +228,11 @@ jobs:
           location: ${{ env.AZURE_LOCATION }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           parameters-file: ./src/azure/main.bicepparam
+
+      - name: Log outputs
+        run: |
+          cat <<END_OF_FILE >> $GITHUB_STEP_SUMMARY
+          ```
+          ${{ steps.deploy.outputs.identities }}
+          ```
+          END_OF_FILE
