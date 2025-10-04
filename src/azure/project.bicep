@@ -40,4 +40,4 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
 
 output clientId string = identity.properties.clientId
 
-output identityId string = identity.id
+output principalId string = identity.properties.principalId
