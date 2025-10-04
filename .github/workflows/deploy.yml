@@ -214,8 +214,8 @@ jobs:
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure
         id: deploy
@@ -226,19 +226,28 @@ jobs:
           scope: subscription
           name: hexxy-media-bicep-deploy
           location: ${{ env.AZURE_LOCATION }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           parameters-file: ./src/azure/main.bicepparam
 
       - name: Log outputs
         env:
           IDENTITIES: ${{ steps.deploy.outputs.identities }}
-        run: '
-          echo "$IDENTITIES"
-          | jq --raw-output ''
-            ["Repository", "Client ID"],
-            ["---", "---"],
-            (.[] | [.name, .clientId])
+        run: |
+          echo 'Tenant ID: `${{ vars.AZURE_TENANT_ID }}`' >> $GITHUB_STEP_SUMMARY
+          echo 'Subscription ID: `${{ vars.AZURE_SUBSCRIPTION_ID }}`' >> $GITHUB_STEP_SUMMARY
+          echo "$IDENTITIES" | jq --raw-output '
+            (
+              ["Repository", "Client ID"]
+              | ., map("---")
+            ),
+            (
+              sort_by(.name)
+              | .[]
+              | [
+                "[\(.name)](https://github.com/\(.name))",
+                "`\(.clientId)`"
+              ]
+            )
             | join(" | ")
             | "| \(.) |"
-            ''
-          >> $GITHUB_STEP_SUMMARY'
+          ' >> $GITHUB_STEP_SUMMARY
