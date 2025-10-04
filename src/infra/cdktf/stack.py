@@ -1,10 +1,10 @@
 import logging
 import os
 from dataclasses import dataclass
+from typing import Any
 
 import cdktf
-from cdktf_cdktf_provider_cloudflare.dns_record import DnsRecord
-from cdktf_cdktf_provider_cloudflare.provider import CloudflareProvider
+from cdktf_cdktf_provider_cloudflare import provider, record
 from constructs import Construct
 
 from hexxy_media.common.types import GitHubPagesRecord
@@ -41,7 +41,7 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
 
         # Cloudflare
 
-        CloudflareProvider(
+        provider.CloudflareProvider(
             self,
             "CloudflareProvider",
             api_token=os.getenv("CLOUDFLARE_API_TOKEN"),
@@ -74,13 +74,31 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                     proxied=proxied,
                 )
 
+        # Minecraft SRV record for non-standard port
+        record.Record(
+            self,
+            "SRV_cypher-mc",
+            zone_id=zone_id,
+            type="SRV",
+            name="_minecraft._tcp",
+            data=record.RecordData(
+                service="_minecraft",
+                proto="_tcp",
+                name="cypher-mc",
+                priority=10,
+                weight=100,
+                target="cypher-mc.hexxy.media",
+                port=cypher_mc.port,
+            ),
+        )
+
         # root-level TXT records
         for value, ttl in [
             (
                 "google-site-verification=NyyINfEEMwYz9RthiVwPJFn8-bIGMlEUMszznsLkNXQ",
                 3600,
             ),
-            ("v=spf1 -all", 1),
+            ("v=spf1 -all", None),
         ]:
             create_record(
                 self,
@@ -93,14 +111,13 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
 
         # GitHub Pages hexdoc books
         for page in github_pages:
-            DnsRecord(
+            record.Record(
                 self,
                 f"GitHubPages_{page.record_name}_{page.record_value}",
                 zone_id=zone_id,
                 type="CNAME",
                 name=page.record_name,
-                content=page.record_value,
-                ttl=1,
+                value=page.record_value,
             )
 
 
@@ -113,7 +130,7 @@ def create_record(
     value: str,
     priority: int | None = None,
     proxied: bool = False,
-    ttl: int = 1,
+    **kwargs: Any,
 ):
     match name:
         case "@":
@@ -126,14 +143,14 @@ def create_record(
             id_parts = [type, value]
             name = "@"
 
-    return DnsRecord(
+    return record.Record(
         scope,
         "_".join(id_parts).replace(".", "-"),
         zone_id=zone_id,
         type=type,
         name=name,
-        content=value,
+        value=value,
         priority=priority,
         proxied=proxied,
-        ttl=ttl,
+        **kwargs,
     )
