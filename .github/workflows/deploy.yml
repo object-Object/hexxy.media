@@ -230,9 +230,15 @@ jobs:
           parameters-file: ./src/azure/main.bicepparam
 
       - name: Log outputs
-        run: |
-          cat <<END_OF_FILE >> $GITHUB_STEP_SUMMARY
-          ```
-          ${{ steps.deploy.outputs.identities }}
-          ```
-          END_OF_FILE
+        env:
+          IDENTITIES: ${{ steps.deploy.outputs.identities }}
+        run: '
+          echo "$IDENTITIES"
+          | jq --raw-output ''
+            ["Repository", "Client ID"],
+            ["---", "---"],
+            (.[] | [.name, .clientId])
+            | join(" | ")
+            | "| \(.) |"
+            ''
+          >> $GITHUB_STEP_SUMMARY'
