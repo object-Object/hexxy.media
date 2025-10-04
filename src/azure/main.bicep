@@ -27,6 +27,7 @@ resource artifactsRole 'Microsoft.Authorization/roleDefinitions@2022-04-01' = {
     assignableScopes: [
       resourceGroup.id
     ]
+    permissions: []
   }
 }
 
