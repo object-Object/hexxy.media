@@ -45,7 +45,7 @@ resource artifactsGroup 'Microsoft.Graph/groups@v1.0' = {
   displayName: artifactsGroupName
   uniqueName: guid(artifactsGroupName)
   mailEnabled: false
-  mailNickname: ''
+  mailNickname: 'hexxy-media-artifacts'
   securityEnabled: true
   members: {
     relationships: [for i in range(0, length(projectInfos)): projects[i].outputs.identityId]
