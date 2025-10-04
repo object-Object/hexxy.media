@@ -18,6 +18,8 @@ outputs.json
 
 node_modules/
 
+src/azure/*.json
+
 # CDK asset staging directory
 .cdk.staging
 cdk.out
