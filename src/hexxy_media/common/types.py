@@ -36,7 +36,7 @@ class GitHubPagesRecord:
         return self.subdomain
 
     @property
-    def record_value(self):
+    def record_content(self):
         return f"{self.user.lower()}.github.io"
 
     @property

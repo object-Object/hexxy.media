@@ -71,13 +71,13 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                 ),
             },
         }.items():
-            for name, (value, proxied) in records.items():
+            for name, (content, proxied) in records.items():
                 create_record(
                     self,
                     zone_id=zone_id,
                     type=record_type,
                     name=name,
-                    value=value,
+                    content=content,
                     proxied=proxied,
                 )
 
@@ -100,7 +100,7 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         )
 
         # root-level TXT records
-        for value, ttl in [
+        for content, ttl in [
             (
                 "google-site-verification=NyyINfEEMwYz9RthiVwPJFn8-bIGMlEUMszznsLkNXQ",
                 3600,
@@ -112,7 +112,7 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                 zone_id=zone_id,
                 type="TXT",
                 name=None,
-                value=value,
+                content=content,
                 ttl=ttl,
             )
 
@@ -120,11 +120,11 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         for page in github_pages:
             record.Record(
                 self,
-                f"GitHubPages_{page.record_name}_{page.record_value}",
+                f"GitHubPages_{page.record_name}_{page.record_content}",
                 zone_id=zone_id,
                 type="CNAME",
                 name=page.record_name,
-                value=page.record_value,
+                content=page.record_content,
             )
 
         # maven.hexxy.media
@@ -153,20 +153,20 @@ def create_record(
     zone_id: str,
     type: str,
     name: str | None,
-    value: str,
+    content: str,
     priority: int | None = None,
     proxied: bool = False,
     **kwargs: Any,
 ):
     match name:
         case "@":
-            id_parts = [type, "ROOT", value]
+            id_parts = [type, "ROOT", content]
         case "*":
-            id_parts = [type, "WILDCARD", value]
+            id_parts = [type, "WILDCARD", content]
         case str():
-            id_parts = [type, name, value]
+            id_parts = [type, name, content]
         case None:
-            id_parts = [type, value]
+            id_parts = [type, content]
             name = "@"
 
     return record.Record(
@@ -175,7 +175,7 @@ def create_record(
         zone_id=zone_id,
         type=type,
         name=name,
-        value=value,
+        content=content,
         priority=priority,
         proxied=proxied,
         **kwargs,
