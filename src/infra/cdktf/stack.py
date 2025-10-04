@@ -140,7 +140,7 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                     ref="root",
                     redirect_type="dynamic",
                     request_url="http*://maven.hexxy.media*",
-                    target_url="https://pkgs.dev.azure.com/hexxy-media/artifacts/_packaging/public/maven/v1${2}",
+                    target_url="https://pkgs.dev.azure.com/hexxy-media/artifacts/_packaging/community/maven/v1${2}",
                     status_code=301,
                     preserve_query_string=True,
                 )
