@@ -193,6 +193,7 @@ def wildcard_redirect(
     preserve_query_string: bool | None = None,
 ):
     if redirect_type == "dynamic":
+        target_url = target_url.replace("$", "$$")
         target = TargetUrl(
             expression=f'wildcard_replace(http.request.full_uri, "{request_url}", "{target_url}")'
         )
