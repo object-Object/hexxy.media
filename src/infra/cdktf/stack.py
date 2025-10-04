@@ -131,6 +131,7 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         Ruleset(
             self,
             "redirect_maven",
+            zone_id=zone_id,
             name="maven",
             kind="zone",
             phase="http_request_dynamic_redirect",
