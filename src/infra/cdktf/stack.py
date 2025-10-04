@@ -1,10 +1,17 @@
 import logging
 import os
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Literal
 
 import cdktf
 from cdktf_cdktf_provider_cloudflare import provider, record
+from cdktf_cdktf_provider_cloudflare.ruleset import (
+    Ruleset,
+    RulesetRules,
+    RulesetRulesActionParameters as ActionParameters,
+    RulesetRulesActionParametersFromValue as FromValue,
+    RulesetRulesActionParametersFromValueTargetUrl as TargetUrl,
+)
 from constructs import Construct
 
 from hexxy_media.common.types import GitHubPagesRecord
@@ -120,6 +127,25 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                 value=page.record_value,
             )
 
+        # maven.hexxy.media
+        Ruleset(
+            self,
+            "redirect_maven",
+            name="maven",
+            kind="zone",
+            phase="http_request_dynamic_redirect",
+            rules=[
+                wildcard_redirect(
+                    ref="root",
+                    redirect_type="dynamic",
+                    request_url="http*://maven.hexxy.media*",
+                    target_url="https://pkgs.dev.azure.com/hexxy-media/artifacts/_packaging/public/maven/v1${2}",
+                    status_code=301,
+                    preserve_query_string=True,
+                )
+            ],
+        )
+
 
 def create_record(
     scope: Construct,
@@ -153,4 +179,38 @@ def create_record(
         priority=priority,
         proxied=proxied,
         **kwargs,
+    )
+
+
+def wildcard_redirect(
+    *,
+    ref: str,
+    redirect_type: Literal["static", "dynamic"],
+    request_url: str,
+    target_url: str,
+    status_code: int,
+    preserve_query_string: bool | None = None,
+):
+    if redirect_type == "dynamic":
+        target = TargetUrl(
+            expression=f'wildcard_replace(http.request.full_uri, "{request_url}", "{target_url}")'
+        )
+    else:
+        target = TargetUrl(value=target_url)
+
+    return RulesetRules(
+        ref=ref,
+        expression=f'http.request.full_uri wildcard "{request_url}"',
+        action="redirect",
+        action_parameters=[
+            ActionParameters(
+                from_value=[
+                    FromValue(
+                        status_code=status_code,
+                        preserve_query_string=preserve_query_string,
+                        target_url=[target],
+                    )
+                ]
+            )
+        ],
     )
