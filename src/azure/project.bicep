@@ -33,7 +33,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(resourceGroup().id, roleDefinitionId, identity.id)
   properties: {
     roleDefinitionId: roleDefinitionId
-    principalId: identity.id
+    principalId: identity.properties.principalId
     principalType: 'ServicePrincipal'
   }
 }
@@ -41,5 +41,3 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
 output clientId string = identity.properties.clientId
 
 output identityId string = identity.id
-
-output identityName string = identity.name
