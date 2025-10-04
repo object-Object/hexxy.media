@@ -1,9 +1,7 @@
 using 'main.bicep'
 
-param projectInfos = [
-  {
-    githubUser: 'FallingColors'
-    githubRepo: 'MoreIotas'
-    githubEnvironments: ['maven']
-  }
-]
+param users = {
+  FallingColors: [
+    { repository: 'MoreIotas', environment: 'maven' }
+  ]
+}

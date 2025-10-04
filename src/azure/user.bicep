@@ -1,29 +1,30 @@
 targetScope = 'resourceGroup'
 
 @export()
-type projectInfoType = {
-  githubUser: string
-  githubRepo: string
-  githubEnvironments: string[]
+type projectType = {
+  repository: string
+  environment: string
 }
 
-param info projectInfoType
+param username string
+
+param projects projectType[]
 
 param roleDefinitionId string
 
 param location string = resourceGroup().location
 
 resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2024-11-30' = {
-  name: replace('hexxy-media-artifacts-${info.githubUser}-${info.githubRepo}', '.', '-')
+  name: 'hexxy-media-artifacts-${replace(username, '.', '-')}'
   location: location
 
   resource githubActionsCredentials 'federatedIdentityCredentials' = [
-    for environment in info.githubEnvironments: {
-      name: 'GitHubActions-${environment}'
+    for project in projects: {
+      name: 'GitHubActions-${project.repository}-${project.environment}'
       properties: {
         audiences: ['api://AzureADTokenExchange']
         issuer: 'https://token.actions.githubusercontent.com'
-        subject: 'repo:${info.githubUser}/${info.githubRepo}:environment:${environment}'
+        subject: 'repo:${username}/${project.repository}:environment:${project.environment}'
       }
     }
   ]

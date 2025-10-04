@@ -231,13 +231,13 @@ jobs:
 
       - name: Log outputs
         env:
-          IDENTITIES: ${{ steps.deploy.outputs.identities }}
+          CLIENT_IDS: ${{ steps.deploy.outputs.clientIds }}
         run: |
           echo 'Tenant ID: `${{ vars.AZURE_TENANT_ID }}`' >> $GITHUB_STEP_SUMMARY
           echo 'Subscription ID: `${{ vars.AZURE_SUBSCRIPTION_ID }}`' >> $GITHUB_STEP_SUMMARY
-          echo "$IDENTITIES" | jq --raw-output '
+          echo "$CLIENT_IDS" | jq --raw-output '
             (
-              ["Repository", "Client ID"]
+              ["User", "Client ID"]
               | ., map("---")
             ),
             (
