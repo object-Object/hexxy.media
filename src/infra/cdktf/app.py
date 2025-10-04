@@ -21,6 +21,8 @@ def init_stacks(app: Construct):
         objectobject_ca="155.138.139.1",
         hexxytest="172.92.208.70",
         cypher_mc=IPWithPort("185.137.94.42", 25591),
+        artifacts_url="https://dev.azure.com/hexxy-media/artifacts/_artifacts/feed/community",
+        maven_url="https://pkgs.dev.azure.com/hexxy-media/artifacts/_packaging/community/maven/v1",
     )
 
 

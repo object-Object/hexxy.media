@@ -1,7 +1,7 @@
 import logging
 import os
 from dataclasses import dataclass
-from typing import Any, Literal
+from typing import Any
 
 import cdktf
 from cdktf_cdktf_provider_cloudflare import provider, record
@@ -36,6 +36,8 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
         objectobject_ca: str,
         hexxytest: str,
         cypher_mc: IPWithPort,
+        artifacts_url: str,
+        maven_url: str,
     ):
         logging.getLogger(__name__).info(f"Initializing stack: {id}")
         super().__init__(scope, id)
@@ -136,14 +138,21 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
             kind="zone",
             phase="http_request_dynamic_redirect",
             rules=[
-                wildcard_redirect(
-                    ref="root",
-                    redirect_type="dynamic",
-                    request_url="http*://maven.hexxy.media*",
-                    target_url="https://pkgs.dev.azure.com/hexxy-media/artifacts/_packaging/community/maven/v1${2}",
+                redirect(
+                    ref="artifacts",
+                    expression='http.host eq "maven.hexxy.media" and http.request.uri.path in {"" "/"}',
+                    target_url=TargetUrl(value=artifacts_url),
+                    status_code=301,
+                ),
+                redirect(
+                    ref="maven",
+                    expression='http.host eq "maven.hexxy.media"',
+                    target_url=TargetUrl(
+                        expression=f'concat("{maven_url}", http.request.uri.path)'
+                    ),
                     status_code=301,
                     preserve_query_string=True,
-                )
+                ),
             ],
         )
 
@@ -183,26 +192,20 @@ def create_record(
     )
 
 
-def wildcard_redirect(
+def redirect(
     *,
     ref: str,
-    redirect_type: Literal["static", "dynamic"],
-    request_url: str,
-    target_url: str,
+    expression: str,
+    target_url: TargetUrl,
     status_code: int,
     preserve_query_string: bool | None = None,
 ):
-    if redirect_type == "dynamic":
-        target_url = target_url.replace("$", "$$")
-        target = TargetUrl(
-            expression=f'wildcard_replace(http.request.full_uri, "{request_url}", "{target_url}")'
-        )
-    else:
-        target = TargetUrl(value=target_url)
+    if target_url.expression:
+        target_url = TargetUrl(expression=target_url.expression.replace("$", "$$"))
 
     return RulesetRules(
         ref=ref,
-        expression=f'http.request.full_uri wildcard "{request_url}"',
+        expression=expression,
         action="redirect",
         action_parameters=[
             ActionParameters(
@@ -210,7 +213,7 @@ def wildcard_redirect(
                     FromValue(
                         status_code=status_code,
                         preserve_query_string=preserve_query_string,
-                        target_url=[target],
+                        target_url=[target_url],
                     )
                 ]
             )
