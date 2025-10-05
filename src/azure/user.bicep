@@ -18,6 +18,7 @@ resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2024-11-30' 
   name: 'hexxy-media-artifacts-${replace(username, '.', '-')}'
   location: location
 
+  @batchSize(1)
   resource githubActionsCredentials 'federatedIdentityCredentials' = [
     for project in projects: {
       name: 'GitHubActions-${project.repository}-${project.environment}'
