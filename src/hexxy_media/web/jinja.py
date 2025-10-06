@@ -4,7 +4,11 @@ from pathlib import Path
 import sass
 from jinja2 import Environment, PackageLoader, StrictUndefined
 
-from hexxy_media.common.data import GITHUB_PAGES_MOD_BOOKS, GITHUB_PAGES_RECORDS
+from hexxy_media.common.data import (
+    GITHUB_PAGES_MOD_BOOKS,
+    GITHUB_PAGES_RECORDS,
+    LINK_RECORDS,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -26,8 +30,8 @@ def build_jinja(output_dir: Path, *, hot_reload: bool):
     }
 
     template_args = {
-        "github_pages_records": GITHUB_PAGES_RECORDS,
-        "github_pages_mod_books": GITHUB_PAGES_MOD_BOOKS,
+        "link_records": LINK_RECORDS + GITHUB_PAGES_RECORDS,
+        "mod_book_records": GITHUB_PAGES_MOD_BOOKS,
         "hot_reload": hot_reload,
     }
 

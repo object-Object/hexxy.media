@@ -2,16 +2,11 @@ from dataclasses import dataclass, field
 
 
 @dataclass(kw_only=True)
-class GitHubPagesRecord:
+class LinkRecord:
     subdomain: str = field(kw_only=False)
     """hexxy.media subdomain.
     
     Usage: `https://{subdomain}.hexxy.media`
-    """
-    user: str
-    """GitHub username.
-    
-    Usage: `https://{user}.github.io`
     """
     title: str = ""
     """Title displayed on the generated website.
@@ -32,16 +27,25 @@ class GitHubPagesRecord:
         return f"https://{self.subdomain}.hexxy.media"
 
     @property
+    def sortkey(self):
+        return (
+            0 if self.hoist else 1,
+            self.title.lower(),
+        )
+
+
+@dataclass(kw_only=True)
+class GitHubPagesRecord(LinkRecord):
+    user: str
+    """GitHub username.
+    
+    Usage: `https://{user}.github.io`
+    """
+
+    @property
     def record_name(self):
         return self.subdomain
 
     @property
     def record_content(self):
         return f"{self.user.lower()}.github.io"
-
-    @property
-    def sortkey(self):
-        return (
-            0 if self.hoist else 1,
-            self.title.lower(),
-        )

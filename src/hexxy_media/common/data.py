@@ -1,4 +1,11 @@
-from .types import GitHubPagesRecord
+from .types import GitHubPagesRecord, LinkRecord
+
+# representation of manually added records for sitemap and generated website
+
+LINK_RECORDS = [
+    LinkRecord("hexxytest", title="HexxyTest"),
+    LinkRecord("maven"),
+]
 
 # generates CNAME records from `{subdomain}.hexxy.media` to `{user}.github.io`
 
@@ -33,5 +40,3 @@ GITHUB_PAGES_MOD_BOOKS = [
         "hextended", user="abilliontrillionstars", title="Hextended Staves"
     ),
 ]
-
-ALL_GITHUB_PAGES_RECORDS = GITHUB_PAGES_RECORDS + GITHUB_PAGES_MOD_BOOKS
