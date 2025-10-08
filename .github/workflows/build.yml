@@ -22,19 +22,24 @@ jobs:
           python-version: 3.11
           cache: pip
 
+      - uses: astral-sh/setup-uv@v6
+
       - uses: actions/setup-node@v5
         with:
           node-version: lts/*
           cache: npm
-      
+
       - name: Install Python packages
-        run: pip install .[build] hatch
+        run: uv pip install .[build] --system
 
       - name: Install Node.js packages
         run: npm ci
-      
+
       - name: Build wheel
-        run: hatch build --target wheel
+        run: uv build --wheel
+
+      - name: Generate requirements.txt
+        run: uv pip compile pyproject.toml --extra runtime --output-file dist/requirements.txt
 
       - name: Build static site
         run: python -m hexxy_media.web.app build
