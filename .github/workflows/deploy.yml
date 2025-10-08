@@ -40,15 +40,14 @@ jobs:
           node-version: lts/*
           cache: npm
 
-      - uses: hashicorp/setup-terraform@v3
-
       - name: Install Python packages
         run: pip install .[cdktf]
 
+      # yes this is ancient, but the latest version fails for some reason
       - name: Run Terraform CDK
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        uses: hashicorp/terraform-cdk-action@v11
+        uses: hashicorp/terraform-cdk-action@v0.1
         with:
           mode: auto-approve-apply
           stackName: prod
