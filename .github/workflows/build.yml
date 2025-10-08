@@ -1,0 +1,111 @@
+name: Build
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.11
+          cache: pip
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+          cache: npm
+      
+      - name: Install Python packages
+        run: pip install .[build] hatch
+
+      - name: Install Node.js packages
+        run: npm ci
+      
+      - name: Build wheel
+        run: hatch build --target wheel
+
+      - name: Build static site
+        run: python -m hexxy_media.web.app build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: dist
+
+      - name: Upload static site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-site
+          path: _site
+
+  synth-aws-cdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.11
+          cache: pip
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install CDK CLI
+        run: npm install -g aws-cdk
+
+      - name: Install Python packages
+        run: pip install .[aws-cdk]
+
+      - name: Synth CDK stack
+        run: cdk synth prod --ci --no-lookups
+
+  synth-cdktf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.11
+          cache: pip
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install Python packages
+        run: pip install .[cdktf]
+
+      - name: Synth Terraform CDK stack
+        uses: hashicorp/terraform-cdk-action@v11
+        with:
+          mode: synth-only
+          stackName: prod
+
+  check-bicep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Lint Bicep files
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az bicep lint --file $GITHUB_WORKSPACE/src/azure/main.bicepparam --verbose
