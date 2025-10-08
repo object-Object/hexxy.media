@@ -98,6 +98,8 @@ jobs:
         with:
           mode: synth-only
           stackName: prod
+          commentOnPr: false
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
 
   check-bicep:
     runs-on: ubuntu-latest
