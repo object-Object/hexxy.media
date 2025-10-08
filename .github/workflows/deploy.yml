@@ -40,6 +40,8 @@ jobs:
           node-version: lts/*
           cache: npm
 
+      - uses: hashicorp/setup-terraform@v3
+
       - name: Install Python packages
         run: pip install .[cdktf]
 

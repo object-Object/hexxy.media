@@ -93,6 +93,8 @@ jobs:
       - name: Install Python packages
         run: pip install .[cdktf]
 
+      - uses: hashicorp/setup-terraform@v3
+
       - name: Synth Terraform CDK stack
         uses: hashicorp/terraform-cdk-action@v11
         with:
