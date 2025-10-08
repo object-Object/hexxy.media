@@ -111,6 +111,9 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    concurrency:
+      group: codedeploy
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v5
 
