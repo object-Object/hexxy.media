@@ -168,6 +168,7 @@ jobs:
         run: aws deploy wait deployment-successful --deployment-id ${{ steps.create-deployment.outputs.deployment-id }}
 
   deploy-azure:
+    needs: build
     runs-on: ubuntu-latest
     environment: prod-azure
     permissions:
