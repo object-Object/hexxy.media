@@ -6,13 +6,13 @@ Monorepo for https://hexxy.media/.
 
 Hex Casting addons are welcome to freely use `{modid}.hexxy.media` for their GitHub Pages web books or any other (reasonable) purpose.
 
-To request a custom subdomain, [open an issue](https://github.com/object-Object/hexxy.media/issues/new?template=subdomain.yml) using the "Custom subdomain" template.
+To request a custom subdomain, [open an issue](https://github.com/object-Object/hexxy.media/issues/new?template=custom-subdomain.yml) using the "Custom subdomain" template.
 
 ## Publishing to maven.hexxy.media
 
 https://maven.hexxy.media is a public Maven repository run by me (object-Object, or `leftsquarebracket` on Discord) and hosted on Azure Artifacts. Hex Casting community members are welcome to use it for publishing projects related to Hex Casting.
 
-To request publishing permissions, first [read the publishing guide](https://gist.github.com/object-Object/f9988135bec5cef653c668712954f429), then [open an issue](https://github.com/object-Object/hexxy.media/issues/new?template=maven.yml) using the "Maven publishing" template.
+To request publishing permissions, first [read the publishing guide](https://gist.github.com/object-Object/f9988135bec5cef653c668712954f429), then [open an issue](https://github.com/object-Object/hexxy.media/issues/new?template=maven-publishing.yml) using the "Maven publishing" template.
 
 ## Repository structure
 
