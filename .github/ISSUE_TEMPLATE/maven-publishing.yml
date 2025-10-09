@@ -57,9 +57,7 @@ body:
   - type: input
     attributes:
       label: Contact information
-      description: Please provide some sort of contact information (eg. Discord username, email address) where I can send the environment secrets and contact you about any issues. Note that this will be **publicly visible** in the GitHub issue created by this form.
-    validations:
-      required: true
+      description: If possible, please provide some sort of contact information (eg. Discord username, email address) where I can contact you about any publishing-related issues or breaking changes in the future. Note that this will be **publicly visible** in the GitHub issue created by this form.
 
   - type: textarea
     attributes:
