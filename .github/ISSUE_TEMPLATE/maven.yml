@@ -1,0 +1,64 @@
+name: Maven publishing
+description: Request permission to publish to maven.hexxy.media
+labels:
+  - provisioning
+assignees:
+  - object-Object
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please [read the publishing guide](https://gist.github.com/object-Object/f9988135bec5cef653c668712954f429) before filling out this form.
+
+  - type: checkboxes
+    attributes:
+      label: Initial checks
+      options:
+        - label: I confirm that I have read the publishing guide.
+          required: true
+        - label: I confirm that I will not publish an unreasonably excessive amount of packages (eg. no automatic publishing on every push).
+          required: true
+
+  - type: dropdown
+    attributes:
+      label: CI/CD provider
+      description: Where will you be publishing packages from?
+      options:
+        - GitHub Actions
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: GitHub repository
+      description: If you selected `GitHub Actions` above, provide a link to the GitHub repository that you will be publishing from.
+
+  - type: input
+    attributes:
+      label: GitHub environment
+      description: If you selected `GitHub Actions` above, provide the name of the GitHub environment that you will be publishing from.
+      value: maven
+
+  - type: input
+    attributes:
+      label: OIDC issuer
+      description: If you selected `Other` above, provide the [OIDC issuer URL](https://learn.microsoft.com/en-ca/entra/workload-id/workload-identity-federation-create-trust-user-assigned-managed-identity#other) that you will be publishing from.
+      placeholder: https://token.actions.githubusercontent.com
+
+  - type: input
+    attributes:
+      label: OIDC subject identifier
+      description: If you selected `Other` above, provide the [OIDC subject identifier](https://learn.microsoft.com/en-ca/entra/workload-id/workload-identity-federation-create-trust-user-assigned-managed-identity#other) that you will be publishing from.
+      placeholder: repo:FallingColors/HexMod:environment:maven
+
+  - type: input
+    attributes:
+      label: Contact information
+      description: Please provide some sort of contact information (eg. Discord username, email address) where I can send the environment secrets and contact you about any issues. Note that this will be publicly visible in the issue created by this form.
+
+  - type: textarea
+    attributes:
+      label: Other information
+      description: Provide any additional context, comments, or requests here.

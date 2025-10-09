@@ -1,0 +1,44 @@
+name: Custom subdomain
+description: Request a custom hexxy.media subdomain
+labels:
+  - provisioning
+assignees:
+  - object-Object
+
+body:
+  - type: input
+    attributes:
+      label: Subdomain
+      description: This is the part before `.hexxy.media` in the domain name. For example, the subdomain for https://hexcasting.hexxy.media is `hexcasting`.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Display name
+      description: The display name to use for the landing page at https://hexxy.media/. If not provided, defaults to the subdomain with the first letter capitalized.
+
+  - type: dropdown
+    attributes:
+      label: Purpose
+      options:
+        - GitHub Pages
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: GitHub repository
+      description: If you selected `GitHub Pages` above, provide a link to the GitHub repository that your site is published from.
+
+  - type: textarea
+    attributes:
+      label: DNS records
+      description: If you selected `Other` above, list the DNS records to create for your subdomain.
+      render: text
+
+  - type: textarea
+    attributes:
+      label: Other information
+      description: Provide any additional context, comments, or requests here.

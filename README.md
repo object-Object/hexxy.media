@@ -2,6 +2,18 @@
 
 Monorepo for https://hexxy.media/.
 
+## Adding a subdomain
+
+Hex Casting addons are welcome to freely use `{modid}.hexxy.media` for their GitHub Pages web books or any other (reasonable) purpose.
+
+To request a custom subdomain, [open an issue](https://github.com/object-Object/hexxy.media/issues/new?template=subdomain.yml) using the "Custom subdomain" template.
+
+## Publishing to maven.hexxy.media
+
+https://maven.hexxy.media is a public Maven repository run by me (object-Object, or `leftsquarebracket` on Discord) and hosted on Azure Artifacts. Hex Casting community members are welcome to use it for publishing projects related to Hex Casting.
+
+To request publishing permissions, first [read the publishing guide](https://gist.github.com/object-Object/f9988135bec5cef653c668712954f429), then [open an issue](https://github.com/object-Object/hexxy.media/issues/new?template=maven.yml) using the "Maven publishing" template.
+
 ## Repository structure
 
 - [.github/workflows/deploy.yml](./.github/workflows/deploy.yml): Deployment workflow for hexxy.media. Runs on every push to main.
@@ -17,12 +29,6 @@ Monorepo for https://hexxy.media/.
   - [web/](./src/hexxy_media/web): [Jinja](https://jinja.palletsprojects.com/en/stable/)-based static site generator for the landing page at https://hexxy.media.
 - [src/infra/aws_cdk/](./src/infra/aws_cdk): [AWS CDK](https://aws.amazon.com/cdk/) application for hexxy.media. This deploys the [CodeDeploy application](https://docs.aws.amazon.com/codedeploy/latest/userguide/applications.html) and [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) that are used for deploying the API and landing page to the VPS that hosts them.
 - [src/infra/cdktf/](./src/infra/cdktf): [CDKTF](https://developer.hashicorp.com/terraform/cdktf) (CDK for Terraform) application for hexxy.media. This deploys DNS records and [dynamic redirects](https://developers.cloudflare.com/rules/url-forwarding/single-redirects/) to Cloudflare for the hexxy.media domain.
-
-## Adding a subdomain
-
-Hex Casting addons are welcome to freely use `{modid}.hexxy.media` for their GitHub Pages web books or any other (reasonable) purpose.
-
-To register a subdomain for GitHub Pages, you can open a pull request adding a record to the appropriate list in [`src/hexxy_media/common/data.py`](src/hexxy_media/common/data.py), or just open an issue / ping me on Discord (`@leftsquarebracket`).
 
 ## Setup
 
