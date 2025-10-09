@@ -9,14 +9,14 @@ body:
   - type: input
     attributes:
       label: Subdomain
-      description: This is the part before `.hexxy.media` in the domain name. For example, the subdomain for https://hexcasting.hexxy.media is `hexcasting`.
+      description: The part before `.hexxy.media` in the domain name. For example, the subdomain for https://hexcasting.hexxy.media is `hexcasting`.
     validations:
       required: true
 
   - type: input
     attributes:
       label: Display name
-      description: The display name to use for the landing page at https://hexxy.media/. If not provided, defaults to the subdomain with the first letter capitalized.
+      description: The display name to use for the landing page at https://hexxy.media/. If not provided, this defaults to the subdomain with the first letter capitalized.
 
   - type: dropdown
     attributes:
@@ -30,12 +30,13 @@ body:
   - type: input
     attributes:
       label: GitHub repository
-      description: If you selected `GitHub Pages` above, provide a link to the GitHub repository that your site is published from.
+      description: If you selected **GitHub Pages** above, provide a link to the GitHub repository that your site is published from.
+      placeholder: https://github.com/FallingColors/HexMod
 
   - type: textarea
     attributes:
       label: DNS records
-      description: If you selected `Other` above, list the DNS records to create for your subdomain.
+      description: If you selected **Other** above, list the DNS records to be created for your subdomain.
       render: text
 
   - type: textarea

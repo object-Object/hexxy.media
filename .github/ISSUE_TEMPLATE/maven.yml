@@ -33,30 +33,33 @@ body:
   - type: input
     attributes:
       label: GitHub repository
-      description: If you selected `GitHub Actions` above, provide a link to the GitHub repository that you will be publishing from.
+      description: If you selected **GitHub Actions** above, provide a link to the GitHub repository that you will be publishing from.
+      placeholder: https://github.com/FallingColors/HexMod
 
   - type: input
     attributes:
       label: GitHub environment
-      description: If you selected `GitHub Actions` above, provide the name of the GitHub environment that you will be publishing from.
-      value: maven
+      description: If you selected **GitHub Actions** above, provide the name of the GitHub environment that you will be publishing from.
+      placeholder: maven
 
   - type: input
     attributes:
       label: OIDC issuer
-      description: If you selected `Other` above, provide the [OIDC issuer URL](https://learn.microsoft.com/en-ca/entra/workload-id/workload-identity-federation-create-trust-user-assigned-managed-identity#other) that you will be publishing from.
+      description: If you selected **Other** above, provide the [OIDC issuer URL](https://learn.microsoft.com/en-ca/entra/workload-id/workload-identity-federation-create-trust-user-assigned-managed-identity#other) that you will be publishing from.
       placeholder: https://token.actions.githubusercontent.com
 
   - type: input
     attributes:
       label: OIDC subject identifier
-      description: If you selected `Other` above, provide the [OIDC subject identifier](https://learn.microsoft.com/en-ca/entra/workload-id/workload-identity-federation-create-trust-user-assigned-managed-identity#other) that you will be publishing from.
+      description: If you selected **Other** above, provide the [OIDC subject identifier](https://learn.microsoft.com/en-ca/entra/workload-id/workload-identity-federation-create-trust-user-assigned-managed-identity#other) that you will be publishing from.
       placeholder: repo:FallingColors/HexMod:environment:maven
 
   - type: input
     attributes:
       label: Contact information
-      description: Please provide some sort of contact information (eg. Discord username, email address) where I can send the environment secrets and contact you about any issues. Note that this will be publicly visible in the issue created by this form.
+      description: Please provide some sort of contact information (eg. Discord username, email address) where I can send the environment secrets and contact you about any issues. Note that this will be **publicly visible** in the GitHub issue created by this form.
+    validations:
+      required: true
 
   - type: textarea
     attributes:
