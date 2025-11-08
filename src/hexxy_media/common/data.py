@@ -20,23 +20,25 @@ GITHUB_PAGES_RECORDS = [
 # - title: Display name used on hexxy.media. Defaults to the subdomain with the first letter capitalized.
 # - hoist: If True, display on hexxy.media in a separate group from the rest of the links.
 GITHUB_PAGES_MOD_BOOKS = [
+    # hoisted
     GitHubPagesRecord("book", user="object-Object", title="Book of Hexxy", hoist=True),
     GitHubPagesRecord(
         "hexcasting", user="FallingColors", title="Hex Casting", hoist=True
     ),
-    GitHubPagesRecord("hexal", user="FallingColors"),
-    GitHubPagesRecord("moreiotas", user="FallingColors", title="MoreIotas"),
-    GitHubPagesRecord("ephemera", user="beholderface"),
-    GitHubPagesRecord("hexgloop", user="SamsTheNerd", title="Hex Gloop"),
+    # non-hoisted
     GitHubPagesRecord("caduceus", user="object-Object"),
-    GitHubPagesRecord("hexbound", user="object-Object"),
-    GitHubPagesRecord("hexdebug", user="object-Object", title="HexDebug"),
-    GitHubPagesRecord("ioticblocks", user="object-Object", title="IoticBlocks"),
-    GitHubPagesRecord("oneironaut", user="beholderface"),
     GitHubPagesRecord("complexhex", user="kineticneticat", title="Complex Hex"),
-    GitHubPagesRecord("hexical", user="miyucomics"),
+    GitHubPagesRecord("ephemera", user="beholderface"),
+    GitHubPagesRecord("hexal", user="FallingColors"),
+    GitHubPagesRecord("hexbound", user="object-Object"),
     GitHubPagesRecord("hexcellular", user="miyucomics"),
+    GitHubPagesRecord("hexdebug", user="object-Object", title="HexDebug"),
+    GitHubPagesRecord("hexgloop", user="SamsTheNerd", title="Hex Gloop"),
+    GitHubPagesRecord("hexical", user="miyucomics"),
     GitHubPagesRecord(
         "hextended", user="abilliontrillionstars", title="Hextended Staves"
     ),
+    GitHubPagesRecord("ioticblocks", user="object-Object", title="IoticBlocks"),
+    GitHubPagesRecord("moreiotas", user="FallingColors", title="MoreIotas"),
+    GitHubPagesRecord("oneironaut", user="beholderface"),
 ]
