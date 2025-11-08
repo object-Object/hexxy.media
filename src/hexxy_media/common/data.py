@@ -28,17 +28,24 @@ GITHUB_PAGES_MOD_BOOKS = [
     # non-hoisted
     GitHubPagesRecord("caduceus", user="object-Object"),
     GitHubPagesRecord("complexhex", user="kineticneticat", title="Complex Hex"),
+    GitHubPagesRecord("efhexs", user="miyucomics", title="Special Efhexs"),
     GitHubPagesRecord("ephemera", user="beholderface"),
     GitHubPagesRecord("hexal", user="FallingColors"),
     GitHubPagesRecord("hexbound", user="object-Object"),
+    GitHubPagesRecord("hexcassettes", user="miyucomics"),
     GitHubPagesRecord("hexcellular", user="miyucomics"),
     GitHubPagesRecord("hexdebug", user="object-Object", title="HexDebug"),
     GitHubPagesRecord("hexgloop", user="SamsTheNerd", title="Hex Gloop"),
     GitHubPagesRecord("hexical", user="miyucomics"),
+    GitHubPagesRecord("hexodus", user="miyucomics"),
+    GitHubPagesRecord("hexpose", user="miyucomics"),
     GitHubPagesRecord(
         "hextended", user="abilliontrillionstars", title="Hextended Staves"
     ),
+    GitHubPagesRecord("hextrogen", user="miyucomics"),
     GitHubPagesRecord("ioticblocks", user="object-Object", title="IoticBlocks"),
     GitHubPagesRecord("moreiotas", user="FallingColors", title="MoreIotas"),
     GitHubPagesRecord("oneironaut", user="beholderface"),
+    GitHubPagesRecord("overevaluate", user="miyucomics"),
+    GitHubPagesRecord("scryglass", user="miyucomics"),
 ]
