@@ -101,7 +101,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
 
       - name: Synth Terraform CDK stack
-        uses: hashicorp/terraform-cdk-action@v11
+        uses: hashicorp/terraform-cdk-action@v0.1
         with:
           mode: synth-only
           stackName: prod
