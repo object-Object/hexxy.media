@@ -10,4 +10,7 @@ param users = {
     { repository: 'HexThings', environment: 'maven' }
     { repository: 'HexxyPlanes', environment: 'maven' }
   ]
+  TechTastic: [
+    { repository: 'HexWeb', environment: 'publishing' }
+  ]
 }
