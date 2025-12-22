@@ -10,6 +10,9 @@ param users = {
     { repository: 'HexThings', environment: 'maven' }
     { repository: 'HexxyPlanes', environment: 'maven' }
   ]
+  Robotgiggle: [
+    { repository: 'hierophantics', environment: 'maven' }
+  ]
   TechTastic: [
     { repository: 'HexWeb', environment: 'publishing' }
   ]
