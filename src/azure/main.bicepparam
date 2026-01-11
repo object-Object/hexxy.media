@@ -15,5 +15,6 @@ param users = {
   ]
   TechTastic: [
     { repository: 'HexWeb', environment: 'publishing' }
+    { repository: 'HexxySkies', environment: 'publishing' }
   ]
 }
