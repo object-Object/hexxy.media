@@ -19,7 +19,7 @@ def init_stacks(app: Construct):
         zone_id="555d45bbbd42d4e084994b80948da2fe",
         github_pages=GITHUB_PAGES_RECORDS + GITHUB_PAGES_MOD_BOOKS,
         objectobject_ca="155.138.139.1",
-        hexxytest="172.92.208.70",
+        hexxytest="172.92.207.111",
         cypher_mc=IPWithPort("185.137.94.42", 25591),
         artifacts_url="https://dev.azure.com/hexxy-media/artifacts/_artifacts/feed/community",
         maven_url="https://pkgs.dev.azure.com/hexxy-media/artifacts/_packaging/community/maven/v1",
