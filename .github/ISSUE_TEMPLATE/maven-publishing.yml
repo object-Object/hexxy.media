@@ -1,9 +1,7 @@
 name: Maven publishing
 description: Request permission to publish to maven.hexxy.media
 labels:
-  - provisioning
-assignees:
-  - object-Object
+  - maven
 
 body:
   - type: markdown

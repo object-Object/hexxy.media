@@ -1,9 +1,7 @@
 name: Custom subdomain
 description: Request a custom hexxy.media subdomain
 labels:
-  - provisioning
-assignees:
-  - object-Object
+  - subdomain
 
 body:
   - type: input
