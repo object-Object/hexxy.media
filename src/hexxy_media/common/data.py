@@ -34,13 +34,18 @@ GITHUB_PAGES_MOD_BOOKS = [
     GitHubPagesRecord("efhexs", user="miyucomics", title="Special Efhexs"),
     GitHubPagesRecord("ephemera", user="beholderface"),
     GitHubPagesRecord("hexal", user="FallingColors"),
+    GitHubPagesRecord("hexarslink", user="YukkuriC", title="Hex-Ars Linker"),
+    GitHubPagesRecord("hexautomata", user="YukkuriC", title="HexAutomata"),
     GitHubPagesRecord("hexbound", user="object-Object"),
     GitHubPagesRecord("hexcassettes", user="miyucomics"),
     GitHubPagesRecord("hexcellular", user="miyucomics"),
     GitHubPagesRecord("hexdebug", user="object-Object", title="HexDebug"),
+    GitHubPagesRecord("hexflow", user="YukkuriC", title="HexFlow"),
     GitHubPagesRecord("hexgloop", user="SamsTheNerd", title="Hex Gloop"),
     GitHubPagesRecord("hexical", user="miyucomics"),
     GitHubPagesRecord("hexodus", user="miyucomics"),
+    GitHubPagesRecord("hexoverpowered", user="YukkuriC", title="HexOverpowered"),
+    GitHubPagesRecord("hexparse", user="YukkuriC", title="HexParse"),
     GitHubPagesRecord("hexpose", user="miyucomics"),
     GitHubPagesRecord(
         "hextended", user="abilliontrillionstars", title="Hextended Staves"
