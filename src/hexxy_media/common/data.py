@@ -12,6 +12,7 @@ LINK_RECORDS = [
 GITHUB_PAGES_RECORDS = [
     GitHubPagesRecord("addons", user="SamsTheNerd", title="Hex Casting Additions"),
     GitHubPagesRecord("hexdoc", user="hexdoc-dev", title="hexdoc"),
+    GitHubPagesRecord("hextools", user="object-Object", title="Hex Tools"),
     GitHubPagesRecord(
         "pigment", user="Teal-Wolf-25-v2", title="Soulglimmer Pigment Viewer"
     ),
