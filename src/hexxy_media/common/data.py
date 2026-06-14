@@ -48,6 +48,7 @@ GITHUB_PAGES_MOD_BOOKS = [
     GitHubPagesRecord("hexoverpowered", user="YukkuriC", title="HexOverpowered"),
     GitHubPagesRecord("hexparse", user="YukkuriC", title="HexParse"),
     GitHubPagesRecord("hexpose", user="miyucomics"),
+    GitHubPagesRecord("hexssence", user="IllinaBurlace"),
     GitHubPagesRecord(
         "hextended", user="abilliontrillionstars", title="Hextended Staves"
     ),
