@@ -58,4 +58,5 @@ GITHUB_PAGES_MOD_BOOKS = [
     GitHubPagesRecord("oneironaut", user="beholderface"),
     GitHubPagesRecord("overevaluate", user="miyucomics"),
     GitHubPagesRecord("scryglass", user="miyucomics"),
+    GitHubPagesRecord("typecasting", user="object-Object", title="TypeCasting"),
 ]

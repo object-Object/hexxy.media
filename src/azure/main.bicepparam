@@ -6,6 +6,9 @@ param users = {
     { repository: 'MoreIotas', environment: 'maven' }
     { repository: 'serialization-hooks', environment: 'maven' }
   ]
+  'object-Object': [
+    { repository: 'TypeCasting', environment: 'maven' }
+  ]
   'Real-Septicake': [
     { repository: 'HexThings', environment: 'maven' }
     { repository: 'HexxyPlanes', environment: 'maven' }
