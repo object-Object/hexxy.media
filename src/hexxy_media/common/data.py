@@ -5,6 +5,7 @@ from .types import GitHubPagesRecord, LinkRecord
 LINK_RECORDS = [
     LinkRecord("hexxytest", title="HexxyTest"),
     LinkRecord("maven"),
+    LinkRecord("weblate"),
 ]
 
 # generates CNAME records from `{subdomain}.hexxy.media` to `{user}.github.io`
