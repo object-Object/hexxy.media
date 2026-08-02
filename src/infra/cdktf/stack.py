@@ -61,19 +61,29 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
             "A": {
                 "*": (objectobject_ca, True),
                 "@": (objectobject_ca, True),
-                "hexxytest": (hexxytest, False),
-                "cypher-mc": (cypher_mc.ip, False),
+                "hexxytest": hexxytest,
+                "cypher-mc": cypher_mc.ip,
+            },
+            "CNAME": {
+                # SES
+                "sirjvyiiffj7vwjz7iectfmwlf5pqqpn._domainkey.weblate.hexxy.media": "sirjvyiiffj7vwjz7iectfmwlf5pqqpn.dkim.amazonses.com",
+                "h4qi4awsbpv34sj55ubslihfngla6zsd._domainkey.weblate.hexxy.media": "h4qi4awsbpv34sj55ubslihfngla6zsd.dkim.amazonses.com",
+                "qd2nogzxvk547ejrq5u6qk62a7kds3we._domainkey.weblate.hexxy.media": "qd2nogzxvk547ejrq5u6qk62a7kds3we.dkim.amazonses.com",
             },
             "TXT": {
-                "_dmarc": ("v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s;", False),
-                "*._domainkey": ("v=DKIM1; p=", False),
-                "_visual-studio-marketplace-hexdoc-dev.hexxy.media": (
-                    "b5247f90-1e08-4d5c-ac83-558024322149",
-                    False,
-                ),
+                "_dmarc": "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s;",
+                "*._domainkey": "v=DKIM1; p=",
+                "_visual-studio-marketplace-hexdoc-dev.hexxy.media": "b5247f90-1e08-4d5c-ac83-558024322149",
+                # SES
+                "_dmarc.weblate.hexxy.media": "v=DMARC1; p=none;",
             },
         }.items():
-            for name, (content, proxied) in records.items():
+            for name, value in records.items():
+                match value:
+                    case str(content):
+                        proxied = False
+                    case (content, proxied):
+                        pass
                 create_record(
                     self,
                     zone_id=zone_id,
