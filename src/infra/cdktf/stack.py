@@ -93,6 +93,21 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                     proxied=proxied,
                 )
 
+        # MX records (email forwarding)
+        for content in [
+            "mx4.emailowl.com",
+            "mx5.emailowl.com",
+            "mx6.emailowl.com",
+        ]:
+            create_record(
+                self,
+                zone_id=zone_id,
+                type="MX",
+                name=None,
+                content=content,
+                priority=10,
+            )
+
         # Minecraft SRV record for non-standard port
         record.Record(
             self,
