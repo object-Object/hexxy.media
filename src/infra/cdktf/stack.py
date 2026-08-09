@@ -65,6 +65,9 @@ class HexxyMediaTerraformStack(cdktf.TerraformStack):
                 "cypher-mc": cypher_mc.ip,
             },
             "CNAME": {
+                # email forwarding
+                "_dmarc": "dmarcforward.emailowl.com",
+                "dkim._domainkey": "dkim._domainkey.srs.emailowl.com",
                 # SES
                 "sirjvyiiffj7vwjz7iectfmwlf5pqqpn._domainkey.weblate.hexxy.media": "sirjvyiiffj7vwjz7iectfmwlf5pqqpn.dkim.amazonses.com",
                 "h4qi4awsbpv34sj55ubslihfngla6zsd._domainkey.weblate.hexxy.media": "h4qi4awsbpv34sj55ubslihfngla6zsd.dkim.amazonses.com",
